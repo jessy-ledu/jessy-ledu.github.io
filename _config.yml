@@ -1,22 +1,20 @@
 ### Site Settings ###
-title               : portfolYOU
+title               : Jessy LeDu
 description         : >-
-                      I turn coffee :coffee: into code,
-                      use tabs over spaces
-                      and never broke production.
-baseurl             : "/portfolYOU"            # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
-repository          : yousinix/portfolYOU      # Change to <your-username>/<your-username>.github.io (or remove it if you don't need remote projects)
+                      Scientist turned Data Professional — passionate about uncovering insights through data.
+baseurl             : ""                                # Empty because you're hosting at jessy-ledu.github.io
+repository          : jessy-ledu/jessy-ledu.github.io   # Your GitHub Pages repo
 remote_theme        : yousinix/portfolYOU
-open_new_tab        : false                    # Opens external URLs in new tab (works for posts, projects and navbar only)
+open_new_tab        : true                              # Set true to open external URLs in a new tab
 
 
 ### Plugins ###
 plugins:
-  - jemoji
+  - jemoji                                              # Enables GitHub-style emoji support
 
 
 ### Navbar Settings ###
-nav_exclude:                                            # The following paths are excluded from navbar
+nav_exclude:                                            # The following paths are excluded from the navbar
   - pages/tags.html
   - pages/404.html
   - pages/index.md
@@ -25,31 +23,31 @@ nav_exclude:                                            # The following paths ar
 
 ### Author Info ###
 author:
-  name              : John Doe
-  image             : https://i.imgur.com/uyDNQnn.jpg
-  behance           : your_username
+  name              : Jessy LeDu
+  image             : https://jessy-ledu.github.io/assets/images/climate.png   # Optional: replace with your own photo URL or leave blank
+# behance           : your_username
 # dribbble          : your_username
-  email             : username@domain.com
-  facebook          : your_username
-  github            : your_username
+  email             : jessy.ledu@gmail.com
+# facebook          : your_username
+  github            : jessy-ledu
 # gitlab            : your_username
 # instagram         : your_username
 # kaggle            : your_username
-  linkedin          : your_username
-  medium            : your_username
+  linkedin          : your-linkedin-username
+# medium            : your_username
 # soundcloud        : your_username
 # spotify           : your_username
 # stackoverflow     : your_user_id
 # tumblr            : your_username.tumblr.com
 # twitch            : your_username
-  twitter           : your_username
+# twitter           : your_username
 # vimeo             : your_username
 # youtube           : your_channel_name
 # keybase           : your_username
 
 
 ### Posts ###
-permalink: /blog/:title
+permalink: /blog/:title                                 # Blog posts permalink structure
 
 
 ### Collections ###
@@ -63,12 +61,12 @@ collections:
 
 ### Disqus ###
 disqus:
-  shortname: your-short-name-disqus                     # Your website Shortname on disqus
+  shortname: your-short-name-disqus                     # Comment system (optional) — leave blank or remove if unused
 
 
 ### Analytics ###
 analytics:
-  enabled: false                                        # Set true to enable analytics
+  enabled: false                                        # Enable if you want Google Analytics
   google:
     tracking_id: your-google-tracking-id
 
@@ -76,10 +74,10 @@ analytics:
 ### Buy me a coffee ###
 # See https://www.buymeacoffee.com/
 buymeacoffee:
-  enabled: false
+  enabled: false                                        # Set to true if you'd like to enable donation support
   username: your_username
   color: "#007bff"
-  message: "Thank you for visiting."                    # Message to be displayed aside from the button for a few seconds.
+  message: "Thank you for visiting."                    # Message near the donation button
   description: "Support me on Buy me a coffee!"
 
 
@@ -99,7 +97,7 @@ defaults:
       path: ""
       type: "posts"
     values:
-      comments: false                                   # Set to true to enable disqus comments
+      comments: false                                   # Set to true if using Disqus comments
 
 
 ### Exclude from processing ###
