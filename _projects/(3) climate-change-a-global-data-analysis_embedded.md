@@ -1,7 +1,7 @@
 ---
 name: Climate Change, Emissions & Demography
 tools: [Python, Pandas, Plotly, Quarto]
-image: https://jessy-ledu.github.io/assets/projects/climate-change-a-global-data-analysis/climate-change.png
+image: https://jessy-ledu.github.io/assets/projects/climate-change-a-global-data-analysis/climate-change.jpg
 description: Global analysis of warming, emissions, and population using Python.
 ---
 
