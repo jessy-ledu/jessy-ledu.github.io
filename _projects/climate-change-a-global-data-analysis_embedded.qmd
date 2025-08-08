@@ -1,8 +1,9 @@
 ---
-title: 'Climate Change, Emissions & Demography: A Global Data Analysis'
-jupyter: python3
+name: 'Climate Change, Emissions & Demography: A Global Data Analysis'
+tools: [python3, pandas, quarto]
+image: https://www.sketchappsources.com/resources/source-image/movie-badges-jurajjurik.png
+description: This project is part of a **data science career-building portfolio**, designed to showcase the use of **Python for data analysis and visualization** in the context of real-world, global-scale issues.
 ---
-
 
 ### Project Context
 
