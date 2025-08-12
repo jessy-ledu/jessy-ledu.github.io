@@ -39,4 +39,15 @@ This notebook not only addresses a critical global issue, but also serves as a p
 > It uses publicly available data and simplified models to explore global patterns in climate, emissions, and population.  
 > While care was taken to ensure accuracy, the analysis is exploratory in nature and meant primarily to demonstrate **technical and analytical skills** in Python.
 
+---
+
+### Global Surface Temperature Interactive Plot
+
+<iframe src="assets/Projects/climate-change-a-global-data-analysis/interactive_plot_Global_Surface_temp.html" 
+        width="100%" 
+        height="600" 
+        style="border:none;">
+</iframe>
+
+
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded.html" width="100%" height="900" style="border:0;"></iframe>
