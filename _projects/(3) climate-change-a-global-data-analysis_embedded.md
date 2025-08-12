@@ -52,7 +52,6 @@ This plot shows the global average change in surface temperature over recent dec
         style="border:none;">
 </iframe>
 
-
 ##  Linear Temperature Trends by Country (°C/decade)
 Since a linear model can effectively approximate the observed trends at both global and local scales, we applied simple linear regression to each country’s time series data to quantify changes in climate indicators such as surface temperature. The slope of the fitted line represents the average rate of temperature change per year, which we then scaled to °C per decade for more straightforward interpretation and comparison across regions.
 
@@ -65,6 +64,20 @@ Linear regression is a straightforward method to model long-term trends, offerin
 -  While it doesn't capture non-linear effects or fluctuations, it's widely used as a baseline trend indicator.
 
 ---
+
+### Country Code Reference
+
+If needed, the table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used in this study.
+
+<!-- Embed the pre-rendered HTML table -->
+<iframe
+  src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/table_countries-names.html"
+  width="100%"
+  height="520"
+  style="border:0;"
+  loading="lazy"
+></iframe>
+
 
 ### 🔺 Top 5 Countries with the **Largest Warming Trends** (°C/decade)
 
