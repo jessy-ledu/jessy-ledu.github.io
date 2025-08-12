@@ -96,7 +96,7 @@ These countries still show warming, but at a **much slower pace**, close to **0.
 
 ### No Cooling Countries Identified
 
-> ** No countries show a stable or cooling trend (≤ 0 °C/decade).**
+** No countries show a stable or cooling trend (≤ 0 °C/decade).**
 
 This suggests that, according to the linear trend from 1961–2022, **every country with sufficient data** is experiencing some level of warming. This aligns with the broader global warming consensus observed in both satellite and ground station data.
 
@@ -108,11 +108,17 @@ This suggests that, according to the linear trend from 1961–2022, **every coun
 
 
 
-### Final Thoughts
+### Conclusion and Final Map
 
-Linear trend analysis offers a **clear and interpretable metric** for comparing warming rates across countries. However, it should be complemented with more nuanced methods (e.g., rolling averages, non-linear fits) to fully capture **short-term dynamics, regional patterns, and variability** in climate behavior.
+Linear-trend analysis provides a clear, comparable metric for warming rates across countries. Most nations with available data show increasing surface temperatures—a hallmark of global warming—though the pace varies substantially by region.
 
----
+The map below displays this distribution; the color gradient indicates the magnitude of change (°C per decade).
+
+<img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-14-output-1.png" 
+     alt="Map of country-level warming rates (°C per decade)" 
+     width="100%" 
+     style="border:0;">
+
 
 
 ---
