@@ -5,6 +5,7 @@ image: "https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-dat
 description: "Global analysis of warming, emissions, and population using Python."
 ---
 
+### Global analysis of warming, emissions, and population using Python.
 ### Project Context
 
 This project is part of a **data science career-building portfolio**, designed to showcase the use of **Python for data analysis and visualization** in the context of real-world, global-scale issues.
@@ -173,6 +174,11 @@ $ \text{Growth Rate (\%/year)} = \frac{\ln(P_{\text{end}}) - \ln(P_{\text{start}
 
 This assumes **exponential growth** and enables fair comparison across countries.
 
+<img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-22-output-1.png" 
+     alt="Global Climate Analysis" 
+     width="100%" 
+     style="border:0;">
+     
 ### What the Map Shows
 
 - **Fastest-growing populations** are mostly in **Sub-Saharan Africa** (e.g., Niger, Angola, Chad) and parts of **Central Asia**.
@@ -180,8 +186,30 @@ This assumes **exponential growth** and enables fair comparison across countries
 - **Eastern Europe** shows mixed patterns: some countries (e.g., Bulgaria) are shrinking, while others (e.g., Uzbekistan) grow faster.
 
 These trends reflect a complex mix of **birth rates, aging, migration**, and **economic conditions** across regions.
+
 ---
 
+### Green house gases (GHG) and their impact on climate
+
+THe following is the linear trend to see evolution of emission in GHG for each countries for
+<iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_trend.html" 
+        width="100%" 
+        height="600" 
+        style="border:none;">
+</iframe>
+
+### What the Map Shows
+Depending on the gas
+
+<iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_cum.html" 
+        width="100%" 
+        height="600" 
+        style="border:none;">
+</iframe>
+
+### What the Map Shows
+
+---
 Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto:
 
 ---
