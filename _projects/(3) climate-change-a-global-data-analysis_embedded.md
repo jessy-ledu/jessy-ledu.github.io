@@ -43,11 +43,15 @@ This notebook not only addresses a critical global issue, but also serves as a p
 
 ### Global Surface Temperature Interactive Plot
 
-<iframe src="assets/Projects/climate-change-a-global-data-analysis/interactive_plot_Global_Surface_temp.html" 
+<iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_plot_Global_Surface_temp.html" 
         width="100%" 
         height="600" 
         style="border:none;">
 </iframe>
 
+---
 
+Below you can consult the whole notebook that allowed to generate the visualizations and interpretations, this HTML document has been generated using Quarto:
+
+---
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded.html" width="100%" height="900" style="border:0;"></iframe>
