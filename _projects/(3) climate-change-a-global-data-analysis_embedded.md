@@ -119,11 +119,30 @@ The map below displays this distribution; the color gradient indicates the magni
      width="100%" 
      style="border:0;">
 
+## Global Warming Trends Visualized on the World Map
+
+To complement our quantitative analysis, we mapped the **linear temperature trends** by country across the globe. Each country is colored based on its **warming rate (°C/decade)**, derived from simple linear regression on its historical temperature data (1961–2022).
+
+###  What Does the Map Show?
+
+- **All countries** with sufficient data show a **positive trend**, confirming that **no region is cooling** over the long term.
+- **Darker shades** represent countries experiencing **slower warming**.
+
+### Regional Highlights
+
+- **Northern countries**—including **Russia**, **Eastern Europe**, and **Canada**—stand out with **higher warming trends**. This reflects a well-known climate phenomenon:  
+  >  **Polar and sub-polar amplification**, where higher latitudes warm faster due to snow/ice feedbacks and changes in atmospheric circulation.
+
+- **Equatorial and some Southern Hemisphere countries** show **weaker warming trends**, though still positive. These include parts of **South America**, **Southeast Asia**, and **Oceania**.
+
+###  Interpretation Notes
+
+- This map provides an intuitive, spatial view of how climate change is **unevenly distributed**, despite being **global phenomenon**.
+- Geographic patterns help identify **climate hotspots**, support **policy targeting**, and inspire **region-specific climate adaptation strategies**.
 
 
 ---
 
----
 
 ---
 ## Factors influencing global warming- studying impacting factors at global and local scales
