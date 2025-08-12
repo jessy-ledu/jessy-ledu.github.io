@@ -75,7 +75,7 @@ If needed, the table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the cou
   src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/table_countries-names.html"
   width="100%"
   height="520"
-  style="border:0;"
+  style="border:none;"
   loading="lazy"
 ></iframe>
 
