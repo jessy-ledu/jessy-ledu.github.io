@@ -68,21 +68,15 @@ Linear regression is a straightforward method to model long-term trends, offerin
 
 ### Country Code Reference
 
-If needed, the table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used in this study testest.
+The table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used in this study.
 
-<table style="border-collapse: collapse; width: 100%; background-color: #0b1220; color: white;">
-  <thead>
-    <tr>
-      <th style="padding: 6px;">Country</th>
-      <th style="padding: 6px;">ISO3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>USA</td><td>USA</td></tr>
-    <tr><td>France</td><td>FRA</td></tr>
-    <!-- Add more rows -->
-  </tbody>
-</table>
+<iframe
+  src="table_countries-names.html"
+  width="100%"
+  height="520"
+  style="border:none;"
+  loading="lazy"
+></iframe>
 
 
 ### 🔺 Top 5 Countries with the **Largest Warming Trends** (°C/decade)
@@ -204,7 +198,15 @@ The following is the linear trend to see the evolution of emissions in GHG for e
 </iframe>
 
 ### What the Map Shows
-Depending on the gas
+Carbon dioxideemission present a trend of positive evolution in various countries around the globe particularlty in china, india but also in in America> western Europe show plateau or decreeinsing trend in few coutries.
+
+Fluorinated gases emission trend shows stagnation in most coutries except for some coutries same as the one with high co2 emission such as india, china and America.
+
+Methane emisson shows more constrsated trends with most northern countries showing strong decreasing trend while southern countries like china, india and brazil showing high increaseding trend
+Nitrous oxide emisson is strongly increasing in America, china, india razil for exeemple, but decreasing in most noth eastern coutries and Russia
+
+The overall all GHG trend reflect previous conclusions and shows a contrsting pattern with coutries incressing up to +200mt co2e per decade while other show decreasing trend down to -200mt co2e 
+
 
 The following is the cumulated emission of GHG for each country  in the 1960-2024 period.
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_cum.html" 
@@ -214,7 +216,7 @@ The following is the cumulated emission of GHG for each country  in the 1960-202
 </iframe>
 
 ### What the Map Shows
-
+Cumulative emissions are also reveleant to look at since it shows that coutries with decreasing trend are still over the whole period the greatest emitters sush as counties in noth estern Europe and Russia, while USA china for exemple are the greastes contributor and maintain there trend of emission> however the overall cumulated contribution of Africa and latin America and indo pacific is still really limited. Alaska  while is not populated is a great emmiter due to thawing permafrost and the extraction and burning of fossil fuels for other countries.
 ---
 Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto:
 
