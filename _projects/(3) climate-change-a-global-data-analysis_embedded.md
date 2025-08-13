@@ -6,6 +6,7 @@ description: "Global analysis of warming, emissions, and population using Python
 ---
 
 # Global analysis of warming, emissions, and population using Python.
+##Introduction
 ### Project Context
 
 This project is part of a **data science career-building portfolio**, designed to showcase the use of **Python for data analysis and visualization** in the context of real-world, global-scale issues.
@@ -54,7 +55,7 @@ This plot shows the global average change in surface temperature over recent dec
         style="border:none;">
 </iframe>
 
-##  Linear Temperature Trends by Country (°C/decade)
+###  Linear Temperature Trends by Country (°C/decade)
 Since a linear model can effectively approximate the observed trends at both global and local scales, we applied simple linear regression to each country’s time series data to quantify changes in climate indicators such as surface temperature. The slope of the fitted line represents the average rate of temperature change per year, which we then scaled to °C per decade for more straightforward interpretation and comparison across regions.
 
 ### Why Linear Regression?
@@ -164,7 +165,7 @@ To complement our quantitative analysis, we mapped the **linear temperature tren
 To explain the observed global trend—or at least to identify variables that correlate with it—we will analyze additional demographic indicators alongside greenhouse gas (GHG) emissions, assessing patterns at both the global and country-specific levels.
 
 ---
-## Average Population Growth Rate (% per year)
+### Average Population Growth Rate (% per year)
 
 We compute the **average annual population growth rate** using:
 
@@ -234,7 +235,7 @@ Note that Alaska is grouped with the United States in this analysis, so it share
 
 ---
 
-### Exploring Correlations Between Climate, Population, and Emissions
+## Exploring Correlations Between Climate, Population, and Emissions
 
 To better understand the **drivers and patterns of climate change**, we analyzed the **average values per country** for:
 
@@ -367,7 +368,7 @@ This project also illustrates **end-to-end data science capabilities**:
 
      
 ---
-### Full Notebook
+## Full Notebook
 <a id="full-notebook"></a>
 
 Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto from Python 3 code:
