@@ -299,7 +299,7 @@ To summarize complex relationships between **climate indicators**, **GHG emissio
 
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/PCA_plot_Country_profiles.html" 
         width="100%" 
-        height="600" 
+        height="500" 
         style="border:none;">
 </iframe>
 
@@ -329,6 +329,7 @@ These results emphasize that while **climate change is global**, its **responsib
 ### Integrating Correlations and PCA
 
 By combining **correlation analysis** and **PCA**, we provide a coherent view of how **demographic**, **industrial**, and **climatic variables** interact at a global scale. The results underscore the complexity of global climate dynamics while remaining interpretable for **portfolio demonstration purposes**.
+
 ---
 
 ## Conclusion
