@@ -5,7 +5,7 @@ image: "https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-dat
 description: "Global analysis of warming, emissions, and population using Python."
 ---
 
-### Global analysis of warming, emissions, and population using Python.
+# Global analysis of warming, emissions, and population using Python.
 ### Project Context
 
 This project is part of a **data science career-building portfolio**, designed to showcase the use of **Python for data analysis and visualization** in the context of real-world, global-scale issues.
