@@ -44,7 +44,6 @@ For those who want to explore the **full notebook and code**, you can jump direc
 
 ---
 
----
 ## Mean Global Surface Temperature Change
 This plot shows the global average change in surface temperature over recent decades, with the option to view individual countries using the dropdown menu. It provides a clear view of the overall warming trend while allowing for country-level comparisons. Serving as a visual starting point for exploring climate patterns, it highlights both the magnitude and pace of temperature change, laying the groundwork for deeper analyses of the factors driving these shifts and their potential impacts.
 
@@ -66,8 +65,6 @@ Linear regression is a straightforward method to model long-term trends, offerin
 -  **The rate** of change (slope in °C/year → °C/decade)
 -  While it doesn't capture non-linear effects or fluctuations, it's widely used as a baseline trend indicator.
 
----
-
 ### Country Code Reference
 
 The table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used in this study.
@@ -79,7 +76,6 @@ The table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used
   style="border:none;"
   loading="lazy"
 ></iframe>
-
 
 ### 🔺 Top 5 Countries with the **Largest Warming Trends** (°C/decade)
 
@@ -93,8 +89,6 @@ The table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used
 
 These countries are experiencing the **fastest warming**, with Zimbabwe showing a particularly steep trend of nearly **0.15°C per decade**, well above the global average.
 
----
-
 ### 🔻 Top 5 Countries with the **Smallest Positive Warming Trends** (°C/decade)
 
 | Country | Trend (°C/decade) |
@@ -107,21 +101,16 @@ These countries are experiencing the **fastest warming**, with Zimbabwe showing 
 
 These countries still show warming, but at a **much slower pace**, close to **0.01°C per decade**, which may reflect regional climatic factors, buffering effects, or measurement variability.
 
----
-
 ### No Cooling Countries Identified
 
 ** No countries show a stable or cooling trend (≤ 0 °C/decade).**
 
 This suggests that, according to the linear trend from 1961–2022, **every country with sufficient data** is experiencing some level of warming. This aligns with the broader global warming consensus observed in both satellite and ground station data.
 
----
 <img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-11-output-1.png" 
      alt="Global Climate Analysis" 
      width="100%" 
      style="border:0;">
-
-
 
 ### Conclusion and Final Map
 
@@ -154,10 +143,6 @@ To complement our quantitative analysis, we mapped the **linear temperature tren
 
 - This map provides an intuitive, spatial view of how climate change is **unevenly distributed**, despite being **global phenomenon**.
 - Geographic patterns help identify **climate hotspots**, support **policy targeting**, and inspire **region-specific climate adaptation strategies**.
-
-
----
-
 
 ---
 ## Factors influencing global warming- studying impacting factors at global and local scales
@@ -200,8 +185,6 @@ The following map visualizes **linear trends in greenhouse gas emissions** for e
         style="border:none;">
 </iframe>
 
----
-
 ### Interpreting the Map
 
 - **Carbon dioxide (CO₂)** emissions generally show an upward trend in countries such as **China, India, and the United States**, while parts of **Western Europe** display stable or slightly declining trends.  
@@ -211,8 +194,6 @@ The following map visualizes **linear trends in greenhouse gas emissions** for e
 
 Overall, total GHG trends reflect a **divergence between countries**: some are increasing emissions by up to **+200 Mt CO₂e per decade**, while others are decreasing by similar magnitudes.
 
----
-
 The following map shows the **cumulative GHG emissions for each country** from **1970 to 2023**, providing insight into long-term contributions:
 
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_cum.html" 
@@ -220,8 +201,6 @@ The following map shows the **cumulative GHG emissions for each country** from *
         height="600" 
         style="border:none;">
 </iframe>
-
----
 
 ### Interpreting Cumulative Emissions
 
@@ -242,8 +221,6 @@ To better understand the **drivers and patterns of climate change**, we analyzed
 - **Surface temperature change (°C/decade)**
 - **Population growth**
 - **Greenhouse gas (GHG) emissions**
-
----
 
 ### Correlation Analysis
 
@@ -270,8 +247,6 @@ Here, we focus on **GHG emissions versus temperature change**, showing a **posit
 
 Finally, this plot highlights the relationship between **population growth and emissions**, suggesting that more populous countries tend to emit more greenhouse gases.
 
----
-
 ### Observed Patterns
 
 - **GHG emissions and temperature change** are positively correlated globally.  
@@ -281,8 +256,6 @@ Finally, this plot highlights the relationship between **population growth and e
 - **Population and temperature trends** show an indirect correlation, potentially mediated by emissions and economic activity.
 
 > While correlation does **not imply causation**, these relationships provide a **first-order understanding** of global climate dynamics.
-
----
 
 ### Model Fitting and Trend Behavior
 
@@ -313,8 +286,6 @@ To summarize complex relationships between **climate indicators**, **GHG emissio
   - Countries with strong warming trends often have slower population growth (e.g., **Zimbabwe**, **Moldova**).  
   - Countries with rapid population growth (e.g., **UAE**, **Qatar**) tend to have lower observed temperature trends.  
 
----
-
 ### A Global Process with Unequal Local Impacts
 
 These results emphasize that while **climate change is global**, its **responsibility and impacts are unevenly distributed**:
@@ -324,8 +295,6 @@ These results emphasize that while **climate change is global**, its **responsib
 - Geographic, economic, and infrastructural factors shape both vulnerability and contribution.
 
 > This asymmetry supports the need for **differentiated responsibilities** and **tailored adaptation strategies** in climate policy.
-
----
 
 ### Integrating Correlations and PCA
 
