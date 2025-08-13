@@ -35,6 +35,7 @@ Through this, we aim to uncover global patterns and inequalities in **climate im
 ---
 
 This notebook not only addresses a critical global issue, but also serves as a practical demonstration of **end-to-end data analysis in Python** for potential collaborators or employers.
+For those who want to explore the **full notebook and code**, you can jump directly to the [notebook section](#full-notebook).
 
 > **Disclaimer**: This notebook is intended as a **data science portfolio project**, not a scientific publication.  
 > It uses publicly available data and simplified models to explore global patterns in climate, emissions, and population.  
@@ -231,9 +232,149 @@ Cumulative emissions highlight that countries with **declining current trends** 
 
 Note that Alaska is grouped with the United States in this analysis, so it shares the same color on the map. While permafrost thawing in Alaska does release some greenhouse gases, primarily methane, its contribution is small compared to the overall emissions from the United States and other major industrial sources.
 
+---
+
+### Exploring Correlations Between Climate, Population, and Emissions
+
+To better understand the **drivers and patterns of climate change**, we analyzed the **average values per country** for:
+
+- **Surface temperature change (°C/decade)**
+- **Population growth**
+- **Greenhouse gas (GHG) emissions**
 
 ---
-Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto:
+
+### Correlation Analysis
+
+The following correlation plots show how these variables relate at a **global scale**:
+
+<img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-33-output-1.png" 
+     alt="Correlation1" 
+     width="100%" 
+     style="border:0;">
+
+This plot illustrates the overall **linear relationships** among temperature change, population growth, and total GHG emissions.
+
+<img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-34-output-1.png" 
+     alt="Correlation2" 
+     width="100%" 
+     style="border:0;">
+
+Here, we focus on **GHG emissions versus temperature change**, showing a **positive correlation**, consistent with the link between human emissions and global warming.
+
+<img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-35-output-1.png" 
+     alt="Correlation3" 
+     width="100%" 
+     style="border:0;">
+
+Finally, this plot highlights the relationship between **population growth and emissions**, suggesting that more populous countries tend to emit more greenhouse gases.
 
 ---
-<iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded.html" width="100%" height="900" style="border:0;"></iframe>
+
+### Observed Patterns
+
+- **GHG emissions and temperature change** are positively correlated globally.  
+- **Population and GHG emissions** also correlate positively, likely reflecting:
+  - Higher energy demand in more populous countries.
+  - Increased industrial and agricultural activity.  
+- **Population and temperature trends** show an indirect correlation, potentially mediated by emissions and economic activity.
+
+> While correlation does **not imply causation**, these relationships provide a **first-order understanding** of global climate dynamics.
+
+---
+
+### Model Fitting and Trend Behavior
+
+We tested different model types — **linear**, **logarithmic**, and **exponential** — to capture these relationships. Performance was similar across models, supporting **linear regression** as:
+
+- A **simple and interpretable approach**.
+- Adequate for **cross-country comparisons**.
+- Useful for **communicating trends** clearly in a portfolio context.
+
+---
+
+### Principal Component Analysis (PCA): Synthesizing Global Patterns
+
+To summarize complex relationships between **climate indicators**, **GHG emissions**, and **population growth**, we performed a **Principal Component Analysis (PCA)**. PCA reduces dimensionality while preserving the most important patterns.
+
+<iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/PCA_plot_Country_profiles.html" 
+        width="100%" 
+        height="600" 
+        style="border:none;">
+</iframe>
+
+#### Key Insights from PCA
+
+- **Major GHG emitters** (e.g., **USA**, **China**) appear as outliers due to high emissions.  
+- Excluding these outliers shows consistent underlying global trends.  
+- **GHG emissions** exhibit **weak correlations** with population growth and temperature change, highlighting that emissions alone do not explain climate impacts fully.  
+- An **inverse relationship** is observed between **temperature trend** and **population growth**:
+  - Countries with strong warming trends often have slower population growth (e.g., **Zimbabwe**, **Moldova**).  
+  - Countries with rapid population growth (e.g., **UAE**, **Qatar**) tend to have lower observed temperature trends.  
+
+---
+
+### A Global Process with Unequal Local Impacts
+
+These results emphasize that while **climate change is global**, its **responsibility and impacts are unevenly distributed**:
+
+- Some highly affected countries contribute little to emissions.  
+- Major emitters may experience less immediate warming.  
+- Geographic, economic, and infrastructural factors shape both vulnerability and contribution.
+
+> This asymmetry supports the need for **differentiated responsibilities** and **tailored adaptation strategies** in climate policy.
+
+---
+
+### Integrating Correlations and PCA
+
+By combining **correlation analysis** and **PCA**, we provide a coherent view of how **demographic**, **industrial**, and **climatic variables** interact at a global scale. The results underscore the complexity of global climate dynamics while remaining interpretable for **portfolio demonstration purposes**.
+---
+
+## Conclusion
+
+This project confirms that **climate change is a global process**, with virtually every country experiencing some degree of warming over the past six decades. However, the **impact**, **contribution**, and **capacity to respond** vary widely across countries:
+
+- **No country shows a cooling trend**, but some—such as **Zimbabwe (ZWE)** and **Moldova (MDA)**—are warming faster despite **low emissions** and **limited population growth**.  
+- Major emitters—like **USA** and **China (CHN)**—have **substantially higher GHG outputs**, yet they are **not always the most climatically impacted**.  
+- Countries with **rapid population or economic growth** (e.g., **UAE, ARE**; **Qatar, QAT**) often show **lower observed warming**, reflecting geographic factors, economic buffering, or infrastructure resilience.
+
+Through **correlation analysis**, **linear regression models**, and **Principal Component Analysis (PCA)**, we identified key structural imbalances:  
+
+> Countries experiencing the steepest climate impacts have **often contributed the least** to global emissions, highlighting a fundamental issue of **climate justice**.
+
+---
+
+### Skills Demonstrated
+
+This project also illustrates **end-to-end data science capabilities**:
+
+- **Data ingestion** from open-access sources (IMF, World Bank, etc.)  
+- **Data cleaning & integration** across multiple country-level datasets  
+- **Exploratory Data Analysis (EDA)** using statistical summaries, correlation metrics, and visualizations  
+- **Geospatial visualization** of global trends with Matplotlib, Seaborn, and GeoPandas  
+- **Regression modeling** (linear, logarithmic, exponential) to quantify temporal trends  
+- **Dimensionality reduction** with PCA to reveal underlying patterns and relationships  
+- **Narrative storytelling** with Markdown to communicate insights clearly and coherently  
+
+---
+
+> Thank you for exploring this analysis — feedback and discussion are welcome.  
+>
+> > **Note:** This project was developed with guidance from OpenAI's ChatGPT for code structuring, reasoning, and Markdown formatting.  
+> All code, analyses, and visualizations were **independently validated and adapted** by myself to ensure accuracy and reproducibility.
+
+     
+---
+### Full Notebook
+<a id="full-notebook"></a>
+
+Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto from Python 3 code:
+
+---
+<div style="background-color:#1e1e1e; padding:10px; border-radius:5px;">
+  <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded.html" 
+          width="100%" height="900" style="border:0; background-color:#1e1e1e;">
+  </iframe>
+</div>
+
