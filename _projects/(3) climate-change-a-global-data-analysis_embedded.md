@@ -70,14 +70,19 @@ Linear regression is a straightforward method to model long-term trends, offerin
 
 If needed, the table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used in this study testest.
 
-<!-- Embed the pre-rendered HTML table -->
-<iframe
-  src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/table_countries-names.html"
-  width="100%"
-  height="520"
-  style="border:none;"
-  loading="lazy"
-></iframe>
+<table style="border-collapse: collapse; width: 100%; background-color: #0b1220; color: white;">
+  <thead>
+    <tr>
+      <th style="padding: 6px;">Country</th>
+      <th style="padding: 6px;">ISO3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>USA</td><td>USA</td></tr>
+    <tr><td>France</td><td>FRA</td></tr>
+    <!-- Add more rows -->
+  </tbody>
+</table>
 
 
 ### 🔺 Top 5 Countries with the **Largest Warming Trends** (°C/decade)
@@ -161,7 +166,7 @@ To complement our quantitative analysis, we mapped the **linear temperature tren
 ---
 ## Factors influencing global warming- studying impacting factors at global and local scales
 
-In order to explain the observed global trend—or at least to identify variables that correlate with it—we will analyze additional demographic indicators alongside greenhouse gas (GHG) emissions, assessing patterns at both the global and country-specific levels.
+To explain the observed global trend—or at least to identify variables that correlate with it—we will analyze additional demographic indicators alongside greenhouse gas (GHG) emissions, assessing patterns at both the global and country-specific levels.
 
 ---
 ## Average Population Growth Rate (% per year)
@@ -189,9 +194,9 @@ These trends reflect a complex mix of **birth rates, aging, migration**, and **e
 
 ---
 
-### Green house gases (GHG) and their impact on climate
+### Greenhouse gases (GHG) and their impact on climate
 
-THe following is the linear trend to see evolution of emission in GHG for each countries for
+The following is the linear trend to see the evolution of emissions in GHG for each country, it uses same linear model as mentionned above for temperature chage.
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_trend.html" 
         width="100%" 
         height="600" 
@@ -201,6 +206,7 @@ THe following is the linear trend to see evolution of emission in GHG for each c
 ### What the Map Shows
 Depending on the gas
 
+The following is the cumulated emission of GHG for each country  in the 1960-2024 period.
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_cum.html" 
         width="100%" 
         height="600" 
