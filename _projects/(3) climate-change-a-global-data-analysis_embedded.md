@@ -71,7 +71,7 @@ Linear regression is a straightforward method to model long-term trends, offerin
 The table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used in this study.
 
 <iframe
-  src="table_countries-names.html"
+  src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/table_countries-names.html"
   width="100%"
   height="520"
   style="border:none;"
