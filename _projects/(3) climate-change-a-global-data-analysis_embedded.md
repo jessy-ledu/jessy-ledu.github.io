@@ -188,35 +188,50 @@ These trends reflect a complex mix of **birth rates, aging, migration**, and **e
 
 ---
 
-### Greenhouse gases (GHG) and their impact on climate
+### Greenhouse Gases (GHG) and Their Impact on Climate
 
-The following is the linear trend to see the evolution of emissions in GHG for each country, it uses same linear model as mentionned above for temperature chage.
+The following map visualizes **linear trends in greenhouse gas emissions** for each country. The trends are estimated using the same **simple linear regression approach** applied previously to temperature changes, allowing for consistent comparison across indicators.
+
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_trend.html" 
         width="100%" 
         height="600" 
         style="border:none;">
 </iframe>
 
-### What the Map Shows
-Carbon dioxideemission present a trend of positive evolution in various countries around the globe particularlty in china, india but also in in America> western Europe show plateau or decreeinsing trend in few coutries.
+---
 
-Fluorinated gases emission trend shows stagnation in most coutries except for some coutries same as the one with high co2 emission such as india, china and America.
+### Interpreting the Map
 
-Methane emisson shows more constrsated trends with most northern countries showing strong decreasing trend while southern countries like china, india and brazil showing high increaseding trend
-Nitrous oxide emisson is strongly increasing in America, china, india razil for exeemple, but decreasing in most noth eastern coutries and Russia
+- **Carbon dioxide (CO₂)** emissions generally show an upward trend in countries such as **China, India, and the United States**, while parts of **Western Europe** display stable or slightly declining trends.  
+- **Fluorinated gases (F-gases)** exhibit largely stagnant emissions globally, with increases mostly concentrated in countries with high CO₂ emissions.  
+- **Methane (CH₄)** emissions present contrasting patterns: **Northern countries** (e.g., Canada, Northern Europe) often show decreasing trends, whereas **Southern and densely populated countries** like China, India, and Brazil display increasing trends.  
+- **Nitrous oxide (N₂O)** emissions are increasing in countries including China, India, Brazil, and the United States, while trends are declining or stable in **Northern and Eastern European countries** and Russia.
 
-The overall all GHG trend reflect previous conclusions and shows a contrsting pattern with coutries incressing up to +200mt co2e per decade while other show decreasing trend down to -200mt co2e 
+Overall, total GHG trends reflect a **divergence between countries**: some are increasing emissions by up to **+200 Mt CO₂e per decade**, while others are decreasing by similar magnitudes.
 
+---
 
-The following is the cumulated emission of GHG for each country  in the 1960-2024 period.
+The following map shows the **cumulative GHG emissions for each country** from **1970 to 2023**, providing insight into long-term contributions:
+
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_cum.html" 
         width="100%" 
         height="600" 
         style="border:none;">
 </iframe>
 
-### What the Map Shows
-Cumulative emissions are also reveleant to look at since it shows that coutries with decreasing trend are still over the whole period the greatest emitters sush as counties in noth estern Europe and Russia, while USA china for exemple are the greastes contributor and maintain there trend of emission> however the overall cumulated contribution of Africa and latin America and indo pacific is still really limited. Alaska  while is not populated is a great emmiter due to thawing permafrost and the extraction and burning of fossil fuels for other countries.
+---
+
+### Interpreting Cumulative Emissions
+
+Cumulative emissions highlight that countries with **declining current trends** can still be among the **largest historical emitters**. For example:
+
+- **Europe and Russia**: Emissions are decreasing now, but have historically contributed a significant share.  
+- **United States and China**: These countries remain among the **highest emitters historically and currently**, maintaining substantial emissions.  
+- **Africa, Latin America, and the Indo-Pacific region**: Cumulative contributions remain relatively small on a global scale.
+
+Note that Alaska is grouped with the United States in this analysis, so it shares the same color on the map. While permafrost thawing in Alaska does release some greenhouse gases, primarily methane, its contribution is small compared to the overall emissions from the United States and other major industrial sources.
+
+
 ---
 Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto:
 
