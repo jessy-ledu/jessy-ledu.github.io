@@ -1,0 +1,32 @@
+html, body {
+  background-color: #101828 !important; /* match your dark background */
+  color: #e5e7eb; /* light text */
+}
+
+/* Make code cells dark */
+div.cell.code_cell {
+  background-color: #0b1220 !important;
+  border-radius: 6px;
+}
+
+/* For the <pre><code> inside code cells */
+div.cell.code_cell pre {
+  background-color: #0b1220 !important;
+  color: #e5e7eb !important;
+}
+
+/* Also darken Quarto-rendered code blocks */
+pre code {
+  background-color: #0b1220 !important;
+  color: #e5e7eb !important;
+}
+
+/* Keep tables blending in */
+table {
+  background-color: transparent !important;
+}
+
+/* Make Plotly charts blend in */
+.plotly-graph-div {
+  background-color: transparent !important;
+}
