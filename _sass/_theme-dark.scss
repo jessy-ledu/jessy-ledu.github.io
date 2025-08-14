@@ -11,7 +11,7 @@ $dark-900: #dadde0;
 
   // Code blocks & Syntax highlighting
 
-  @import "native.scss";
+  @import "native";
 
   pre,
   code.highlighter-rouge {
@@ -82,3 +82,5 @@ $dark-900: #dadde0;
     background-color: $dark-900;
   }
 }
+[data-theme="dark"] * { outline: 2px dashed magenta !important; }
+
