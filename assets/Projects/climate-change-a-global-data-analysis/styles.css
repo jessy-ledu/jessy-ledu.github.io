@@ -5,19 +5,19 @@ html, body {
 
 /* Make code cells dark */
 div.cell.code_cell {
-  background-color: #242526 !important;
+  background-color: #2c3032 !important;
   border-radius: 6px;
 }
 
 /* For the <pre><code> inside code cells */
 div.cell.code_cell pre {
-  background-color: #17191a !important;
+  background-color: #2c3032 !important;
   color: #e5e7eb !important;
 }
 
 /* Also darken Quarto-rendered code blocks */
 pre code {
-  background-color: #17191a !important;
+  background-color: #2c3032 !important;
   color: #e5e7eb !important;
 }
 
@@ -30,41 +30,49 @@ table {
 .plotly-graph-div {
   background-color: transparent !important;
 }
-/* ========== Dark scrollbar palette (tweak these) ========== */
-:root {
-  --sb-track: #0f1113;      /* track/background */
-  --sb-thumb: #2b2f33;      /* draggable thumb */
-  --sb-thumb-hover: #3a3f44;
+/* ====== Base dark theme ====== */
+html, body {
+  background-color: #2c3032 !important; /* match your dark background */
+  color: #e5e7eb;                       /* light text */
+  color-scheme: dark;                    /* native controls + scrollbars prefer dark */
 }
 
-/* Scope to dark mode only (remove the selector if you want always) */
-[data-theme="dark"] * {
-  /* Firefox */
-  scrollbar-width: thin; /* auto | thin | none */
+/* Make code cells dark */
+div.cell.code_cell {
+  background-color: #2c3032 !important;
+  border-radius: 6px;
+}
+
+/* For the <pre><code> inside code cells */
+div.cell.code_cell pre,
+pre code {
+  background-color: #2c3032 !important;
+  color: #e5e7eb !important;
+}
+
+/* Keep tables blending in */
+table { background-color: transparent !important; }
+
+/* Make Plotly charts blend in */
+.plotly-graph-div { background-color: transparent !important; }
+
+/* Scroll bars output */
+html[data-theme="dark"], body[data-theme="dark"] {
+  color-scheme: dark;
+  scrollbar-width: thin;
   scrollbar-color: var(--sb-thumb) var(--sb-track);
 }
-
-/* Chrome, Edge (Chromium), Safari */
-[data-theme="dark"] *::-webkit-scrollbar {
-  width: 10px;              /* vertical */
-  height: 10px;             /* horizontal */
-}
-
-[data-theme="dark"] *::-webkit-scrollbar-track {
-  background: var(--sb-track);
-}
-
-[data-theme="dark"] *::-webkit-scrollbar-thumb {
+html[data-theme="dark"]::-webkit-scrollbar,
+body[data-theme="dark"]::-webkit-scrollbar { width: 10px; height: 10px; }
+html[data-theme="dark"]::-webkit-scrollbar-track,
+body[data-theme="dark"]::-webkit-scrollbar-track { background: var(--sb-track); }
+html[data-theme="dark"]::-webkit-scrollbar-thumb,
+body[data-theme="dark"]::-webkit-scrollbar-thumb {
   background-color: var(--sb-thumb);
   border-radius: 8px;
-  border: 2px solid var(--sb-track); /* creates “gap” around thumb */
+  border: 2px solid var(--sb-track);
 }
-
-[data-theme="dark"] *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--sb-thumb-hover);
-}
-
-/* Optional: corner where both scrollbars meet */
-[data-theme="dark"] *::-webkit-scrollbar-corner {
-  background: var(--sb-track);
-}
+html[data-theme="dark"]::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"]::-webkit-scrollbar-thumb:hover { background-color: var(--sb-thumb-hover); }
+html[data-theme="dark"]::-webkit-scrollbar-corner,
+body[data-theme="dark"]::-webkit-scrollbar-corner { background: var(--sb-track); }
