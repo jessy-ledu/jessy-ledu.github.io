@@ -81,31 +81,37 @@ The table below lists the ISO 3166-1 alpha-3 (ISO3) codes for the countries used
 
 | Country | Trend (°C/decade) |
 |---------|------------------:|
-| Zimbabwe (ZWE) | **0.148** |
-| Ukraine (UKR) | 0.076 |
-| Moldova (MDA) | 0.075 |
-| Azerbaijan (AZE) | 0.067 |
-| Georgia (GEO) | 0.066 |
+| Ukraine (UKR) | **0.764** |
+| Moldova (MDA) | 0.750 |
+| Azerbaijan (AZE) | 0.674 |
+| Georgia (GEO) | 0.662 |
+| Armenia (ARM) | 0.651 |
 
-These countries are experiencing the **fastest warming**, with Zimbabwe showing a particularly steep trend of nearly **0.15°C per decade**, well above the global average.
+These countries are experiencing the **fastest warming**, with Ukraine and Moldova showing particularly steep trends — more than **seven times** the global average rate.
+
+---
 
 ### 🔻 Top 5 Countries with the **Smallest Positive Warming Trends** (°C/decade)
 
 | Country | Trend (°C/decade) |
 |---------|------------------:|
-| Chile (CHL) | 0.009 |
-| Yemen (YEM) | 0.012 |
-| French Polynesia (PYF) | 0.013 |
-| Timor-Leste (TLS) | 0.013 |
-| Argentina (ARG) | 0.013 |
+| Chile (CHL) | 0.085 |
+| Yemen (YEM) | 0.116 |
+| French Polynesia (PYF) | 0.129 |
+| Timor-Leste (TLS) | 0.131 |
+| Argentina (ARG) | 0.134 |
 
-These countries still show warming, but at a **much slower pace**, close to **0.01°C per decade**, which may reflect regional climatic factors, buffering effects, or measurement variability.
+These countries are still warming, but at a **much slower pace**. Regional climate influences, or oceanic buffering, may contribute to these lower rates.
+
+---
 
 ### No Cooling Countries Identified
 
-** No countries show a stable or cooling trend (≤ 0 °C/decade).**
+> **No countries show a stable or cooling trend (≤ 0 °C/decade).**
 
-This suggests that, according to the linear trend from 1961–2022, **every country with sufficient data** is experiencing some level of warming. This aligns with the broader global warming consensus observed in both satellite and ground station data.
+According to the 1961–2022 linear trends, **every country with sufficient data** is warming. This aligns with the broader global warming consensus.
+
+---
 
 <img src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change-a-global-data-analysis_embedded_files/figure-html/cell-11-output-1.png" 
      alt="Global Climate Analysis" 
