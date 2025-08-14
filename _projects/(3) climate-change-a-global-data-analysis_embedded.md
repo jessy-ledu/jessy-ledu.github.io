@@ -3,10 +3,12 @@ name: "Climate Change, Emissions & Demography"
 tools: [Python, Pandas, Plotly, Quarto]
 image: "https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/climate-change.png"
 description: "Global analysis of warming, emissions, and population using Python."
+toc: true
+toc-title: "Table of Contents"
 ---
 
 # Global analysis of warming, emissions, and population using Python.
-## Introduction teest
+## Introduction
 ### Project Context
 
 This project is part of a **data science career-building portfolio**, designed to showcase the use of **Python for data analysis and visualization** in the context of real-world, global-scale issues.
