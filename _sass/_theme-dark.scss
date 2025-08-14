@@ -1,7 +1,7 @@
 $dark-100: $dark;
-$dark-300: #dadde0;
-$dark-600: #dadde0;
-$dark-900: #dadde0;
+$dark-300: #e9e9e9;
+$dark-600: #e9e9e9;
+$dark-900: #e9e9e9;
 
 [data-theme="dark"] {
   body {
@@ -11,7 +11,7 @@ $dark-900: #dadde0;
 
   // Code blocks & Syntax highlighting
 
-  @import "native";
+  @import "native.scss";
 
   pre,
   code.highlighter-rouge {
@@ -82,5 +82,3 @@ $dark-900: #dadde0;
     background-color: $dark-900;
   }
 }
-[data-theme="dark"] * { outline: 2px dashed magenta !important; }
-
