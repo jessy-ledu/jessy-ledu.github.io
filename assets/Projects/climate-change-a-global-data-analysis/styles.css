@@ -1,23 +1,23 @@
 html, body {
-  background-color: #101828 !important; /* match your dark background */
+  background-color: #17191a !important; /* match your dark background */
   color: #e5e7eb; /* light text */
 }
 
 /* Make code cells dark */
 div.cell.code_cell {
-  background-color: #0b1220 !important;
+  background-color: #17191a !important;
   border-radius: 6px;
 }
 
 /* For the <pre><code> inside code cells */
 div.cell.code_cell pre {
-  background-color: #0b1220 !important;
+  background-color: #17191a !important;
   color: #e5e7eb !important;
 }
 
 /* Also darken Quarto-rendered code blocks */
 pre code {
-  background-color: #0b1220 !important;
+  background-color: #17191a !important;
   color: #e5e7eb !important;
 }
 
@@ -30,3 +30,4 @@ table {
 .plotly-graph-div {
   background-color: transparent !important;
 }
+
