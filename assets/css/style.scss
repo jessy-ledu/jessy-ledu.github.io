@@ -2,5 +2,5 @@
 ---
 @import "portfolYOU";
 
-/* TEMP: pipeline test */
-body { border: 6px solid red !important; }
+/* Force-load our local dark partial (this will use your _sass/_theme-dark.scss) */
+@import "theme-dark";
