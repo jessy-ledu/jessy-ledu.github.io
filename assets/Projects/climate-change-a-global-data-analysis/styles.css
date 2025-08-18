@@ -1,78 +1,127 @@
-html, body {
-  background-color: #17191a !important; /* match your dark background */
-  color: #e5e7eb; /* light text */
+/* ==========================================================================
+   Theme-aware CSS for GitHub Pages / docs
+   - Works with either data-theme="dark" or a .dark class on <html>/<body>
+   - Light is default; dark is brighter & readable
+   ========================================================================== */
+
+/* -------- Theme tokens (LIGHT as default) -------- */
+:root {
+  /* Surfaces & text */
+  --bg: #ffffff;
+  --text: #111827;
+
+  /* Code blocks / cells */
+  --code-bg: #f8fafc;
+  --code-border: #e5e7eb;
+
+  /* Links */
+  --link: #0ea5e9;            /* sky-500 */
+  --link-visited: #0284c7;    /* sky-600 */
+  --link-hover: #08aaf0;
+
+  /* Scrollbars */
+  --sb-track: #e5e7eb;
+  --sb-thumb: #9ca3af;
+  --sb-thumb-hover: #6b7280;
+
+  /* Let native UI prefer light */
+  color-scheme: light;
 }
 
-/* Make code cells dark */
+/* -------- Theme tokens (DARK) -------- */
+:root[data-theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+html.dark,
+body.dark {
+  --bg: #1f2428;              /* brighter dark than #17191a/#2c3032 */
+  --text: #e8edf2;
+
+  --code-bg: #24292e;         /* GitHub dark code surface */
+  --code-border: #2f353a;
+
+  --link: #34d399;            /* emerald-400 (nice green on dark) */
+  --link-visited: #10b981;    /* emerald-500 */
+  --link-hover: #6ee7b7;      /* emerald-300 */
+
+  --sb-track: #17191a;
+  --sb-thumb: #4b5563;
+  --sb-thumb-hover: #6b7280;
+
+  color-scheme: dark;
+}
+
+/* -------- Base elements -------- */
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+}
+
+/* Optional: smoothen theme flip */
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Links */
+a { color: var(--link); }
+a:visited { color: var(--link-visited); }
+a:hover, a:focus { color: var(--link-hover); text-decoration: underline; }
+
+/* -------- Code cells & blocks -------- */
+/* Jupyter/Quarto style code cells */
 div.cell.code_cell {
-  background-color: #2c3032 !important;
+  background-color: var(--code-bg) !important;
+  border: 1px solid var(--code-border);
   border-radius: 6px;
 }
 
-/* For the <pre><code> inside code cells */
-div.cell.code_cell pre {
-  background-color: #2c3032 !important;
-  color: #e5e7eb !important;
-}
-
-/* Also darken Quarto-rendered code blocks */
-pre code {
-  background-color: #2c3032 !important;
-  color: #e5e7eb !important;
-}
-
-/* Keep tables blending in */
-table {
-  background-color: transparent !important;
-}
-
-/* Make Plotly charts blend in */
-.plotly-graph-div {
-  background-color: transparent !important;
-}
-/* ====== Base dark theme ====== */
-html, body {
-  background-color: #2c3032 !important; /* match your dark background */
-  color: #e5e7eb;                       /* light text */
-  color-scheme: dark;                    /* native controls + scrollbars prefer dark */
-}
-
-/* Make code cells dark */
-div.cell.code_cell {
-  background-color: #2c3032 !important;
-  border-radius: 6px;
-}
-
-/* For the <pre><code> inside code cells */
+/* <pre><code> inside cells and standalone code blocks */
 div.cell.code_cell pre,
 pre code {
-  background-color: #2c3032 !important;
-  color: #e5e7eb !important;
+  background-color: var(--code-bg) !important;
+  color: var(--text) !important;
 }
 
-/* Keep tables blending in */
-table { background-color: transparent !important; }
+/* Generic <code> inline tokens (keeps inline readable on both themes) */
+code:not(pre code) {
+  background-color: color-mix(in srgb, var(--code-bg) 90%, var(--bg));
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
 
-/* Make Plotly charts blend in */
+/* Quarto-rendered blocks sometimes target just `pre code` */
+pre code { display: block; padding: 1rem; border-radius: 6px; }
+
+/* -------- Tables & charts -------- */
+table { background-color: transparent !important; }
 .plotly-graph-div { background-color: transparent !important; }
 
-/* Scroll bars output */
-html[data-theme="dark"], body[data-theme="dark"] {
-  color-scheme: dark;
-  scrollbar-width: thin;
+/* -------- Scrollbars (Chromium/WebKit + Firefox) -------- */
+html, body {
+  scrollbar-width: thin;                      /* Firefox */
   scrollbar-color: var(--sb-thumb) var(--sb-track);
 }
-html[data-theme="dark"]::-webkit-scrollbar,
-body[data-theme="dark"]::-webkit-scrollbar { width: 10px; height: 10px; }
-html[data-theme="dark"]::-webkit-scrollbar-track,
-body[data-theme="dark"]::-webkit-scrollbar-track { background: var(--sb-track); }
-html[data-theme="dark"]::-webkit-scrollbar-thumb,
-body[data-theme="dark"]::-webkit-scrollbar-thumb {
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar { width: 10px; height: 10px; }
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track { background: var(--sb-track); }
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
   background-color: var(--sb-thumb);
   border-radius: 8px;
   border: 2px solid var(--sb-track);
 }
-html[data-theme="dark"]::-webkit-scrollbar-thumb:hover,
-body[data-theme="dark"]::-webkit-scrollbar-thumb:hover { background-color: var(--sb-thumb-hover); }
-html[data-theme="dark"]::-webkit-scrollbar-corner,
-body[data-theme="dark"]::-webkit-scrollbar-corner { background: var(--sb-track); }
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover { background-color: var(--sb-thumb-hover); }
+
+/* ==========================================================================
+   Notes:
+   - Remove older rules that hard-coded dark backgrounds (e.g., `html, body { background-color: #2c3032 !important; }`)
+   - Your site’s toggle should set data-theme="dark" or a .dark class on <html>/<body>.
+     These selectors cover both, so the background will now change properly.
+   ========================================================================== */
