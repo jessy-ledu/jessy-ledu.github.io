@@ -32,21 +32,21 @@ table {
 }
 /* ====== Base dark theme ====== */
 html, body {
-  background-color: #2c3032 !important; /* match your dark background */
+  background-color: #17191a !important; /* match your dark background */
   color: #e5e7eb;                       /* light text */
   color-scheme: dark;                    /* native controls + scrollbars prefer dark */
 }
 
 /* Make code cells dark */
 div.cell.code_cell {
-  background-color: #2c3032 !important;
+  background-color: #17191a !important;
   border-radius: 6px;
 }
 
 /* For the <pre><code> inside code cells */
 div.cell.code_cell pre,
 pre code {
-  background-color: #2c3032 !important;
+  background-color: #17191a !important;
   color: #e5e7eb !important;
 }
 
@@ -76,3 +76,4 @@ html[data-theme="dark"]::-webkit-scrollbar-thumb:hover,
 body[data-theme="dark"]::-webkit-scrollbar-thumb:hover { background-color: var(--sb-thumb-hover); }
 html[data-theme="dark"]::-webkit-scrollbar-corner,
 body[data-theme="dark"]::-webkit-scrollbar-corner { background: var(--sb-track); }
+
