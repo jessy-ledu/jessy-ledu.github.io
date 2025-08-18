@@ -5,11 +5,10 @@ image: "https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-dat
 description: "Global analysis of warming, emissions, and population using Python."
 toc: true
 toc-title: "Table of Contents"
+mathjax: true
+# Optional if Liquid clashes with LaTeX:
+# render_with_liquid: false
 ---
-
-<script type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
 
 # Global analysis of warming, emissions, and population using Python.
 ## Introduction
