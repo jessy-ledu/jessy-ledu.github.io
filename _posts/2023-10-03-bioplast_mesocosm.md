@@ -1,8 +1,8 @@
 ---
-title: International BIOPLAST mesocosm study
-tags: [Science, Microplastic pollution, Academic Career]
+title: International BIOPLAST Mesocosm Study
+tags: [Science, Microplastic Pollution, Academic Career]
 style: 
 color: 
-description: Managed fish experimentation in the international BIOPLAST mesocosm study led by ULPGC’s ECOAQUA/EOMAR, assessing the ecological impacts of biodegradable versus conventional plastics on marine communities.
+description: Participation in the BIOPLAST mesocosm experiment, coordinated by ULPGC’s ECOAQUA/EOMAR institute, focusing on controlled fish trials to evaluate how biodegradable and conventional plastics affect marine ecosystems and community dynamics.
 external_url: https://www.ulpgc.es/noticia/2023/10/03/investigadores-del-instituto-ecoaqua-lidera-experimento-internacional-investigar
 ---
