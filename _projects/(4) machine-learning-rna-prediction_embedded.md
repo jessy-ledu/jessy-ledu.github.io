@@ -2,7 +2,7 @@
 name: "Machine and Deep Learning Models for RNA 2D Structure Prediction"
 tools: [Python, Pandas, Scikit-learn, TensorFlow, Keras]
 image: "https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/Dna-pic1.png"
-description: "Designed and trained ML and deep-learning models—including a Scikit-learn baseline and an advanced Transformer architecture built with TensorFlow/Keras enhanced by in-silico structure features—to predict RNA secondary structures for the Stanford Ribonanza RNA Folding challenge."
+description: "Built ML and Transformer models to predict RNA secondary structures for Stanford’s Ribonanza RNA Folding challenge, using both classical baselines and advanced deep-learning architectures."
 toc: true
 toc-title: "Table of Contents"
 mathjax: true
