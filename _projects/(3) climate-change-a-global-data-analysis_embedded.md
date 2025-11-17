@@ -40,12 +40,12 @@ Through this, I aim to uncover global patterns and inequalities in **climate imp
 
 ---
 
-This notebook not only addresses a critical global issue, but also serves as a practical demonstration of **end-to-end data analysis in Python** for potential collaborators or employers.
+This notebook not only addresses a critical global issue but also serves as a practical demonstration of **end-to-end data analysis in Python** for potential collaborators or employers.
 For those who want to explore the **full notebook and code**, you can jump directly to the [notebook section](#full-notebook).
 
-> **Disclaimer**: This notebook is intended as a **data science portfolio project**, not a scientific publication.  
-> It uses publicly available data and simplified models to explore global patterns in climate, emissions, and population.  
-> While care was taken to ensure accuracy, the analysis is exploratory in nature and meant primarily to demonstrate **technical and analytical skills** in Python.
+> **Note**: This notebook is intended as a **data science portfolio project**, not a scientific publication.  
+> It uses publicly available data and models to explore global patterns in climate, emissions, and population.  
+> While care was taken to ensure accuracy, the analysis primarily demonstrates **technical and analytical skills** in Python.
 
 ---
 
@@ -66,7 +66,7 @@ Since a linear model can effectively approximate the observed trends at both glo
 
 ### Why Linear Regression?
 
-Linear regression is a straightforward method to model long-term trends, offering a **first-order estimate** of how an indicator changes over time. It captures:
+Linear regression is a straightforward method for modeling long-term trends, providing a **first-order estimate** of how an indicator changes over time. It captures:
 
 -  **The direction** of change (warming or cooling)
 -  **The rate** of change (slope in °C/year → °C/decade)
@@ -119,7 +119,7 @@ These countries are still warming, but at a **much slower pace**. Regional clima
 
 > **No countries show a stable or cooling trend (≤ 0 °C/decade).**
 
-According to the 1961–2022 linear trends, **every country with sufficient data** is warming. This aligns with the broader global warming consensus.
+According to the 1961–2022 linear trends, **every country with sufficient data** is warming. This aligns with the broader consensus on global warming.
 
 ---
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
@@ -146,7 +146,7 @@ Rate of Temperature Change by Country
 
 ## Global Warming Trends Visualized on the World Map
 
-To complement our quantitative analysis, I mapped the **linear temperature trends** by country across the globe. Each country is colored based on its **warming rate (°C/decade)**, derived from simple linear regression on its historical temperature data (1961–2022).
+To complement our quantitative analysis, I mapped linear temperature trends by country worldwide. Each country is colored by its **warming rate (°C/decade)**, derived from a simple linear regression of its historical temperature data (1961–2022).
 
 ###  What Does the Map Show?
 
@@ -162,7 +162,7 @@ To complement our quantitative analysis, I mapped the **linear temperature trend
 
 ###  Interpretation Notes
 
-- This map provides an intuitive, spatial view of how climate change is **unevenly distributed**, despite being **global phenomenon**.
+- This map provides an intuitive, spatial view of how climate change is **unevenly distributed**, despite being a **global phenomenon**.
 - Geographic patterns help identify **climate hotspots**, support **policy targeting**, and inspire **region-specific climate adaptation strategies**.
 
 ---
@@ -204,7 +204,7 @@ These trends reflect a complex mix of **birth rates, aging, migration**, and **e
 The following map visualizes **linear trends in greenhouse gas emissions** for each country. The trends are estimated using the same **simple linear regression approach** applied previously to temperature changes, allowing for consistent comparison across indicators.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
-Greenhouse Gases Eissions Trend per Country
+Greenhouse Gas Emissions Trend per Country
 </div>
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_trend.html" 
         width="100%" 
@@ -224,7 +224,7 @@ Overall, total GHG trends reflect a **divergence between countries**: some are i
 The following map shows the **cumulative GHG emissions for each country** from **1970 to 2023**, providing insight into long-term contributions:
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
-Cumulative Greenhouse Gases Emissions per Country
+Cumulative Greenhouse Gas Emissions per Country
 </div>
 <iframe src="https://jessy-ledu.github.io/assets/Projects/climate-change-a-global-data-analysis/interactive_map_with_dropdown_GHG_cum.html" 
         width="100%" 
@@ -240,7 +240,7 @@ Cumulative emissions highlight that countries with **declining current trends** 
 - **United States and China**: These countries remain among the **highest emitters historically and currently**, maintaining substantial emissions.  
 - **Africa, Latin America, and the Indo-Pacific region**: Cumulative contributions remain relatively small on a global scale.
 
-Note that Alaska is grouped with the United States in this analysis, so it shares the same color on the map. While permafrost thawing in Alaska does release some greenhouse gases, primarily methane, its contribution is small compared to the overall emissions from the United States and other major industrial sources.
+Note that Alaska is grouped with the United States in this analysis, so it shares the same color on the map. While permafrost thawing in Alaska does release some greenhouse gases, primarily methane, its contribution is small compared to the overall emissions from the United States and other primary industrial sources.
 
 ---
 
@@ -343,7 +343,7 @@ These results emphasize that while **climate change is global**, its **responsib
 
 ### Integrating Correlations and PCA
 
-By combining **correlation analysis** and **PCA**, I provide a coherent view of how **demographic**, **industrial**, and **climatic variables** interact at a global scale. The results underscore the complexity of global climate dynamics while remaining interpretable for **portfolio demonstration purposes**.
+By combining **correlation analysis** and **PCA**, I provide a coherent view of how **demographic**, **industrial**, and **climatic variables** interact globally. The results underscore the complexity of global climate dynamics while remaining interpretable for **portfolio demonstration purposes**.
 
 ---
 
