@@ -9,45 +9,63 @@ mathjax: true
 # render_with_liquid: false
 ---
 
-# Machine and Deep Learning Models for RNA 2D Structure Prediction
+# Machine & Deep Learning Models for RNA 2D Structure Prediction
 
 ## Introduction
-### Project Context
 
-This project was developed as part of the **Stanford Ribonanza RNA Folding Challenge**, where the objective is to model and predict the **secondary structures of arbitrary RNA sequences**.  
-It serves as a **portfolio project** demonstrating applied machine learning, deep learning, feature engineering, and model optimization in a biological context.
+### Project Overview
 
-The work includes:
-- Construction of a **Scikit-learn baseline model** for interpretable performance benchmarking  
-- Development of a **TensorFlow/Keras Transformer model**, capable of capturing long-range nucleotide dependencies  
-- Integration of **in-silico structure features** to enhance predictive accuracy  
-- Experiment tracking, evaluation, and comparison of model performance
+This project was developed for the **Stanford Ribonanza RNA Folding Challenge**, a competition focused on predicting **RNA secondary structure reactivities**—a crucial step toward enabling RNA-based therapeutics such as mRNA vaccines, CRISPR tools, and next-generation antibiotics.
 
-### Data Sources
+It showcases the application of **machine learning**, **deep learning**, and **feature engineering** to real biological data for scientific and bioengineering purposes.
 
-The project relies on challenge-provided datasets from the **Stanford Ribonanza RNA Folding Competition**, including:
+### What I Built
+
+- **Scikit-learn baseline model** for interpretable performance benchmarking  
+- **Custom Transformer architecture (TensorFlow/Keras)** capturing long-range nucleotide dependencies  
+- **In-silico structural feature integration** to enrich predictive signal  
+
+Together, these components form a complete and technically rigorous modeling pipeline.
+
+### The Data
+
+Training data comes from the Ribonanza competition and includes:
+
 - RNA sequences  
-- Target 2D structural annotations  
-- Supplementary in-silico predicted structural features  
+- Experimental chemical reactivity profiles  
+- Supplemental in-silico structural predictions  
 
-These datasets enable training models to identify patterns linking RNA sequence composition and spatial organization.
+These measurements reflect the multiple 2D structures an RNA molecule can form, making them ideal for ML-based prediction.
 
-### Objective
+### Goals of the Project
 
-The goals of the project are to:
-- Predict RNA 2D structures from sequence data
-- Compare traditional ML methods with deep-learning architectures
-- Demonstrate the impact of **feature engineering** and **Transformer attention mechanisms**
-- Build a fully documented, reproducible notebook suitable for technical portfolios or Kaggle publication
+- Predict RNA 2D structural reactivity from sequence  
+- Compare traditional ML models with advanced deep-learning architectures  
+- Demonstrate the impact of **feature engineering** and **attention mechanisms**  
+- Provide a clean, reproducible notebook for portfolio or Kaggle publication  
 
 ---
 
-This notebook provides a complete end-to-end workflow—from preprocessing to model deployment—while showcasing both **scientific understanding** and **machine learning engineering skills**.
+This notebook presents a complete workflow—from preprocessing to modeling and evaluation—highlighting both **ML engineering** and **biological insight**.
 
-For full implementation details, refer to the [notebook section](#full-notebook).
+> **Note:**  
+> This is an exploratory portfolio project.  
+> While the models perform well for the competition context, this work is not intended as peer-reviewed scientific research.
 
-> **Disclaimer:**  
-> This project is a **portfolio-oriented exploration** rather than a peer-reviewed scientific publication.  
-> The models are experimental and designed to demonstrate technical capability in ML, DL, and biological data processing.
+---
 
+## Exploratory Data Analysis (EDA)
+
+Before building models, the first step is to understand the structure and behavior of the Ribonanza dataset.  
+This section provides a **comprehensive, competition-oriented EDA** to uncover patterns in RNA sequences, experimental conditions, and reactivity signals.
+
+### Objectives
+
+- Examine the dataset layout (columns, dtypes, memory footprint)  
+- Identify missing values and experimental variations  
+- Analyze **RNA sequence characteristics** such as length distributions and base composition  
+- Visualize **reactivity patterns** across nucleotide positions, sequence classes, and base types (A, C, G, U)  
+- Derive insights that inform downstream **feature engineering**, model selection, and hyperparameter design  
+
+This EDA builds the foundation for understanding what signals the models must capture and where additional engineered features may improve performance.
 
