@@ -15,7 +15,7 @@ mathjax: true
 
 ### Project Overview
 
-This project was developed for the **Stanford Ribonanza RNA Folding Challenge**, a competition focused on predicting **RNA secondary structure reactivities**—a crucial step toward enabling RNA-based therapeutics such as mRNA vaccines, CRISPR tools, and next-generation antibiotics.
+This project was developed for the  [**Stanford Ribonanza RNA Folding Challenge**](https://www.kaggle.com/competitions/stanford-ribonanza-rna-folding), a competition focused on predicting **RNA secondary structure reactivities**—a crucial step toward enabling RNA-based therapeutics such as mRNA vaccines, CRISPR tools, and next-generation antibiotics.
 
 It showcases the application of **machine learning**, **deep learning**, and **feature engineering** to real biological data for scientific and bioengineering purposes.
 
@@ -68,4 +68,49 @@ This section provides a **comprehensive, competition-oriented EDA** to uncover p
 - Derive insights that inform downstream **feature engineering**, model selection, and hyperparameter design  
 
 This EDA builds the foundation for understanding what signals the models must capture and where additional engineered features may improve performance.
+
+## Mean Global Surface Temperature Change
+This plot shows the global average change in surface temperature over recent decades, with the option to view individual countries using the dropdown menu. It provides a clear view of the overall warming trend while allowing for country-level comparisons. Serving as a visual starting point for exploring climate patterns, it highlights both the magnitude and pace of temperature change, laying the groundwork for deeper analyses of the factors driving these shifts and their potential impacts.
+
+## Summary of Key Column Types
+
+### Sequence Column — `sequence`
+- Non-null count: **1,643,680**
+- Missing: **0 (0.00%)**
+- Unique sequences: **806,573**
+
+### Experiment Type Column — `experiment_type`
+- Non-null count: **1,643,680**
+- Missing: **0 (0.00%)**
+- Unique experiment types: **2**
+
+**Experiment types:**
+- 2A3_MaP — 821,840  
+- DMS_MaP — 821,840  
+
+### Reactivity Columns
+- Total columns: **206**
+- Range: **reactivity_0001 → reactivity_0206**
+- Average missing values: **54.00%**
+- Mean (overall): **0.3223**
+- Std (overall): **1.0992**
+
+### Summary The main dataframe used for training the model contains more than **0.8 million RNA sequences**, with each sequence typically measured **twice**, once for each chemical probing experiment. The two probes—**2A3** and **DMS**—are reagents used to quantify RNA structural flexibility, chemically modify RNA on its bases, and the level of modification reflects RNA structural flexibility:
+
+- **2A3** is a SHAPE-like reagent that modifies **flexible or unpaired nucleotides**, with broad sensitivity across **A, C, G, and U**, reflecting backbone dynamics rather than base identity.
+- **DMS (dimethyl sulfate)** selectively methylates the Watson–Crick edges of **adenines (A)** and **cytosines (C)** when they are **unpaired and solvent-accessible**, making it a probe specific to these two bases.
+
+Some sequences appear multiple times because they were measured more than once with the same probe (technical replicates).
+
+For each sequence, reactivity at each nucleotide position is provided in separate columns labeled **reactivity_0001** to **reactivity_0206**, where 206 corresponds to the maximum sequence length in the dataset. Not all sequences reach this length, and many positions, particularly near the **5′ and 3′ ends**, are missing for all sequences due to experimental constraints.
+
+As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is largely driven by terminal regions where reactivity values are systematically absent for every sequence.
+
+<div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
+Missing reactivity values per position
+</div>
+<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/missing_reactivity.png" 
+     alt="Missing reactivity values per position" 
+     width="100%" 
+     style="border:0;">
 
