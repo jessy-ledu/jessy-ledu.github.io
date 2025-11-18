@@ -88,7 +88,7 @@ This plot shows the global average change in surface temperature over recent dec
 - 2A3_MaP — 821,840  
 - DMS_MaP — 821,840  
 
-### Reactivity Columns
+### Reactivity Columns — `reactivity_XXXX`
 - Total columns: **206**
 - Range: **reactivity_0001 → reactivity_0206**
 - Average missing values: **54.00%**
@@ -104,7 +104,7 @@ Some sequences appear multiple times because they were measured more than once w
 
 For each sequence, reactivity at each nucleotide position is provided in separate columns labeled **reactivity_0001** to **reactivity_0206**, where 206 corresponds to the maximum sequence length in the dataset. Not all sequences reach this length, and many positions, particularly near the **5′ and 3′ ends**, are missing for all sequences due to experimental constraints.
 
-As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is largely driven by terminal regions where reactivity values are systematically absent for every sequence.
+As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is primarily driven by terminal regions where reactivity values are systematically absent for every sequence.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
 Missing reactivity values per position
@@ -113,4 +113,33 @@ Missing reactivity values per position
      alt="Missing reactivity values per position" 
      width="100%" 
      style="border:0;">
+
+<div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
+Sequence Length Distribution & Base Composition
+</div>
+
+<div style="display:flex; justify-content:center; gap:20px; align-items:center;">
+
+<img src="seq_len.png"
+    alt="Sequence Length Distribution"
+    style="width:48%; border:0;">
+
+<img src="base_comp.png"
+    alt="Base Composition"
+    style="width:48%; border:0;">
+
+</div>
+
+
+## Reactivity value distribution (without discriminating experiments and positions)
+
+- **Count:** 1.56 × 10⁸  
+- **Mean:** 0.341  
+- **Standard deviation:** 1.329  
+- **Minimum:** −129.281  
+- **25th percentile (Q1):** 0.000  
+- **Median (Q2):** 0.000  
+- **75th percentile (Q3):** 0.387  
+- **Maximum:** 129.281  
+
 
