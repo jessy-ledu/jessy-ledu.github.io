@@ -111,24 +111,39 @@ Missing reactivity values per position
 </div>
 <img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/missing_reactivity.png" 
      alt="Missing reactivity values per position" 
-     width="100%" 
+     width="80%" 
      style="border:0;">
 
+
+
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
-Sequence Length Distribution & Base Composition
+  Sequence Length Distribution &amp; Base Composition
 </div>
 
-<div style="display:flex; justify-content:center; gap:20px; align-items:center;">
+<table style="width:100%; border-collapse:collapse; border:0 !important;">
+  <tr style="border:0 !important;">
+    <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
+      <img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/seq_len.png"
+           alt="Sequence Length Distribution"
+           style="width:525px; height:auto; border:0 !important; box-shadow:none !important;">
+    </td>
+    <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
+      <img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/base_comp.png"
+           alt="Base Composition"
+           style="width:500px; height:auto; border:0 !important; box-shadow:none !important;">
+    </td>
+  </tr>
+</table>
 
-<img src="seq_len.png"
-    alt="Sequence Length Distribution"
-    style="width:48%; border:0;">
 
-<img src="base_comp.png"
-    alt="Base Composition"
-    style="width:48%; border:0;">
 
-</div>
+
+
+
+
+
+
+
 
 
 ## Reactivity value distribution (without discriminating experiments and positions)
