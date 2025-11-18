@@ -106,7 +106,7 @@ For each sequence, reactivity at each nucleotide position is provided in separat
 
 As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is primarily driven by terminal regions where reactivity values are systematically absent for every sequence, as shown in the figure below.
 
-<div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
+<div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.5em;">
 Missing reactivity values per position
 </div>
 <img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/missing_reactivity.png" 
@@ -115,11 +115,11 @@ Missing reactivity values per position
      style="border:0;">
 
 
-Most sequences are 170-180 bases long (left of the figure below); therefore, the training dataset has limited sequence length diversity. Nevertheless, the model must be designed to adapt to variable sequence length; for example, the test dataset contains sequences up to 400 bases, as reported in the competition description on Kaggle.
+Most sequences are 170-180 bases long (left of the figure below); therefore, the training dataset has limited sequence length diversity. Nevertheless, the model must be designed to adapt to variable sequence length; for example, the test dataset contains sequences up to 400 bases, as reported in the Kaggle competition description.
 
 The proportions of each base across sequences are as expected, with C, G, and U occurring at similar frequencies and a consistent bias toward higher A content (to the right of the figure below). This enrichment in adenines is common in biological RNA samples and can be further amplified by experimental or library-design biases.
 
-<div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
+<div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
   Sequence Length Distribution and Base Composition
 </div>
 
@@ -138,9 +138,6 @@ The proportions of each base across sequences are as expected, with C, G, and U 
   </tr>
 </table>
 
-
-
-
 The data and plot below indicate that the mean reactivity across most positions ranges between 0.3 and 0.5. Increased variability is observed within the first 20–40 bases, and noise rises sharply toward the end of the sequences, particularly around position 150.
 
 **Reactivity value distribution (without discriminating experiments and positions):**
@@ -153,7 +150,7 @@ The data and plot below indicate that the mean reactivity across most positions 
 - **75th percentile (Q3):** 0.387  
 - **Maximum:** 129.281
 
-  <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
+  <div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
   Reactivity value distribution per position for all sequences, and both experiments
 </div>
 
@@ -177,7 +174,7 @@ As shown in the left panel of the figure below, the experiment type has only a s
 
 The difference for underrepresented bases is much more pronounced in the 2A3 dataset, where **G** and **U** show reactivity values below 0.1. This is expected, as the 2A3 probe preferentially modifies **A** and **C** positions. In contrast, the DMS experiment shows a less constrained pattern, with **G** and **C** reaching reactivity values of approximately 0.3 and 0.2, respectively.
 
-  <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
+  <div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
   Reactivity value distribution per position for all sequences, discriminated by experiments
 </div>
 
@@ -196,3 +193,15 @@ The difference for underrepresented bases is much more pronounced in the 2A3 dat
   </tr>
 </table>
 
+## EDA Notebook
+<a id="EDA-notebook"></a>
+
+Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto from Python 3 code:
+
+---
+<iframe 
+    src="https://nbviewer.org/urls/jessy-ledu.github.io/assets/Projects//ml-rna-2d/ribonanza-eda-jld%20%283%29.ipynb"
+    width="100%" 
+    height="800px"
+    frameborder="0">
+</iframe>
