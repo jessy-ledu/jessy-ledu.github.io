@@ -69,17 +69,15 @@ This section provides a **comprehensive, competition-oriented EDA** to uncover p
 
 This EDA builds the foundation for understanding what signals the models must capture and where additional engineered features may improve performance.
 
-## Mean Global Surface Temperature Change
-This plot shows the global average change in surface temperature over recent decades, with the option to view individual countries using the dropdown menu. It provides a clear view of the overall warming trend while allowing for country-level comparisons. Serving as a visual starting point for exploring climate patterns, it highlights both the magnitude and pace of temperature change, laying the groundwork for deeper analyses of the factors driving these shifts and their potential impacts.
+##Results
+### Summary of Key Column Types
 
-## Summary of Key Column Types
-
-### Sequence Column — `sequence`
+**Sequence Column** — `sequence`
 - Non-null count: **1,643,680**
 - Missing: **0 (0.00%)**
 - Unique sequences: **806,573**
 
-### Experiment Type Column — `experiment_type`
+**Experiment Type Column** — `experiment_type`
 - Non-null count: **1,643,680**
 - Missing: **0 (0.00%)**
 - Unique experiment types: **2**
@@ -88,14 +86,16 @@ This plot shows the global average change in surface temperature over recent dec
 - 2A3_MaP — 821,840  
 - DMS_MaP — 821,840  
 
-### Reactivity Columns — `reactivity_XXXX`
+**Reactivity Columns** — `reactivity_XXXX`
 - Total columns: **206**
-- Range: **reactivity_0001 → reactivity_0206**
+- Range: **reactivity_0001- reactivity_0206**
 - Average missing values: **54.00%**
 - Mean (overall): **0.3223**
 - Std (overall): **1.0992**
 
-### Summary The main dataframe used for training the model contains more than **0.8 million RNA sequences**, with each sequence typically measured **twice**, once for each chemical probing experiment. The two probes—**2A3** and **DMS**—are reagents used to quantify RNA structural flexibility, chemically modify RNA on its bases, and the level of modification reflects RNA structural flexibility:
+### Summary of experiments, sequences, and reactivity data
+
+The main dataframe used for training the model contains more than **0.8 million RNA sequences**, with each sequence typically measured **twice**, once for each chemical probing experiment. The two probes—**2A3** and **DMS**—are reagents used to quantify RNA structural flexibility, chemically modify RNA on its bases, and the level of modification reflects RNA structural flexibility:
 
 - **2A3** is a SHAPE-like reagent that modifies **flexible or unpaired nucleotides**, with broad sensitivity across **A, C, G, and U**, reflecting backbone dynamics rather than base identity.
 - **DMS (dimethyl sulfate)** selectively methylates the Watson–Crick edges of **adenines (A)** and **cytosines (C)** when they are **unpaired and solvent-accessible**, making it a probe specific to these two bases.
@@ -104,7 +104,7 @@ Some sequences appear multiple times because they were measured more than once w
 
 For each sequence, reactivity at each nucleotide position is provided in separate columns labeled **reactivity_0001** to **reactivity_0206**, where 206 corresponds to the maximum sequence length in the dataset. Not all sequences reach this length, and many positions, particularly near the **5′ and 3′ ends**, are missing for all sequences due to experimental constraints.
 
-As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is primarily driven by terminal regions where reactivity values are systematically absent for every sequence.
+As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is primarily driven by terminal regions where reactivity values are systematically absent for every sequence, as shown in the figure below.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
 Missing reactivity values per position
@@ -115,9 +115,12 @@ Missing reactivity values per position
      style="border:0;">
 
 
+Most sequences are 170-180 bases long (left of the figure below); therefore, the training dataset has limited sequence length diversity. Nevertheless, the model must be designed to adapt to variable sequence length; for example, the test dataset contains sequences up to 400 bases, as reported in the competition description on Kaggle.
+
+The proportions of each base across sequences are as expected, with C, G, and U occurring at similar frequencies and a consistent bias toward higher A content (to the right of the figure below). This enrichment in adenines is common in biological RNA samples and can be further amplified by experimental or library-design biases.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
-  Sequence Length Distribution &amp; Base Composition
+  Sequence Length Distribution and Base Composition
 </div>
 
 <table style="width:100%; border-collapse:collapse; border:0 !important;">
@@ -138,16 +141,9 @@ Missing reactivity values per position
 
 
 
+The data and plot below indicate that the mean reactivity across most positions ranges between 0.3 and 0.5. Increased variability is observed within the first 20–40 bases, and noise rises sharply toward the end of the sequences, particularly around position 150.
 
-
-
-
-
-
-
-
-## Reactivity value distribution (without discriminating experiments and positions)
-
+**Reactivity value distribution (without discriminating experiments and positions):**
 - **Count:** 1.56 × 10⁸  
 - **Mean:** 0.341  
 - **Standard deviation:** 1.329  
@@ -155,6 +151,48 @@ Missing reactivity values per position
 - **25th percentile (Q1):** 0.000  
 - **Median (Q2):** 0.000  
 - **75th percentile (Q3):** 0.387  
-- **Maximum:** 129.281  
+- **Maximum:** 129.281
 
+  <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
+  Reactivity value distribution per position for all sequences, and both experiments
+</div>
+
+<table style="width:100%; border-collapse:collapse; border:0 !important;">
+  <tr style="border:0 !important;">
+    <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
+      <img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/mean_reactivity.png"
+           alt="Mean reactivity"
+           style="width:500px; height:auto; border:0 !important; box-shadow:none !important;">
+    </td>
+    <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
+      <img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/variance_reactivity.png"
+           alt="Variance in reactivity"
+           style="width:500px; height:auto; border:0 !important; box-shadow:none !important;">
+    </td>
+  </tr>
+</table>
+
+
+As shown in the left panel of the figure below, the experiment type has only a small effect on the overall distribution of reactivity values per position. However, when nucleotides are considered separately (right panel), distinct patterns emerge. Under the 2A3 experiment, bases **A** and **C** show higher reactivity values, reaching approximately 0.7 and 0.5, respectively. In the DMS experiment, **U** and **A** exhibit the highest reactivity, at around 0.5 and 0.4, respectively.
+
+The difference for underrepresented bases is much more pronounced in the 2A3 dataset, where **G** and **U** show reactivity values below 0.1. This is expected, as the 2A3 probe preferentially modifies **A** and **C** positions. In contrast, the DMS experiment shows a less constrained pattern, with **G** and **C** reaching reactivity values of approximately 0.3 and 0.2, respectively.
+
+  <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.8em;">
+  Reactivity value distribution per position for all sequences, discriminated by experiments
+</div>
+
+<table style="width:100%; border-collapse:collapse; border:0 !important;">
+  <tr style="border:0 !important;">
+    <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
+      <img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/reactivity-dist-per-exp.png"
+           alt="Reactivity distribution per exp"
+           style="width:500px; height:auto; border:0 !important; box-shadow:none !important;">
+    </td>
+    <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
+      <img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/barplot-react-per-base-per-exp.png"
+           alt="Reactivity per experiment per base"
+           style="width:500px; height:auto; border:0 !important; box-shadow:none !important;">
+    </td>
+  </tr>
+</table>
 
