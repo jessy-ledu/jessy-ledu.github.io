@@ -2,3 +2,15 @@
 ---
 @import "portfolYOU";
 @import "theme-dark";
+
+.plot-pair {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.plot-pair img {
+  flex: 1 1 0;
+  max-width: 100%;
+  height: auto;
+}
