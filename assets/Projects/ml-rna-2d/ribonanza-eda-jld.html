@@ -12019,7 +12019,7 @@ div.prompt {
 div.cell.code_cell {
   background-color: #17191a !important;
   border-radius: 6px;
-  border: 1px solid #1f2937;
+  border: 1px solid #111314;
 }
 
 div.cell.code_cell .input,
@@ -12060,7 +12060,7 @@ pre code {
 
 .output_area {
   padding: 0.5rem 0.75rem 0.75rem;
-  border-top: 1px solid #1f2937;
+  border-top: 1px solid #111314;
 }
 
 /* Plain text outputs */
@@ -12124,7 +12124,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ===== Tables ===== */
+/* ===== Tables (back to original-style dark) ===== */
 table {
   background-color: transparent !important;
   border-collapse: collapse;
@@ -12135,18 +12135,21 @@ table {
 
 table th,
 table td {
-  border: 1px solid #1f2937;
+  border: 1px solid #111314;
   padding: 0.4rem 0.5rem;
+  color: #e5e7eb; /* ensure text isn't black */
 }
 
+/* Header row */
 table th {
-  background-color: rgba(15, 23, 42, 0.6);
+  background-color: #020617; /* solid dark header */
   font-weight: 600;
 }
 
+/* Data rows: solid dark as well */
 table tr:nth-child(even),
 table tr:nth-child(odd) {
-  background-color: rgba(15, 23, 42, 0.3);
+  background-color: #020617; /* same color for all rows, like original */
 }
 
 /* ===== Charts ===== */
@@ -12320,7 +12323,52 @@ body * {
 .highlight .gs {
   font-weight: bold;
 }
+/* ===== FINAL: Force all tables into dark theme ===== */
+
+/* Base table */
+table {
+  background-color: #17191a !important;   /* dark */
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+/* Header row (column names) */
+table th {
+  background-color: #111314 !important;   /* dark header */
+  color: #e5e7eb !important;              /* light text */
+  border: 1px solid #111314 !important;
+  padding: 0.45rem 0.6rem !important;
+  font-weight: 600 !important;
+}
+
+/* Table cells */
+table td {
+  background-color: #17191a !important;   /* match table bg */
+  color: #e5e7eb !important;              /* readable text */
+  border: 1px solid #111314 !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+/* Row striping (dark subtle) */
+table tr:nth-child(even) td {
+  background-color: #111314 !important;
+}
+table tr:nth-child(odd) td {
+  background-color: #17191a !important;
+}
+
+/* Pandas DataFrame-specific overrides */
+.dataframe thead th {
+  background-color: #111314 !important;   /* header bg */
+  color: #e5e7eb !important;              /* header text */
+  border-color: #111314 !important;
+}
+
+.dataframe tbody td {
+  background-color: #17191a !important;   /* body cell bg */
+  color: #e5e7eb !important;              /* body text */
+  border-color: #111314 !important;
+}
 </style>
 </body>
 </html>
-
