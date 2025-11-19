@@ -225,6 +225,74 @@ By combining experimental reactivity measurements with in silico structural pred
 
 ### Results
 
+Below are examples of RNA secondary structures predicted with the ViennaRNA package under three conditions: **no SHAPE constraints**, **standard SHAPE constraints**, and **exaggerated (“strong”) constraints**.  
+
+SHAPE reactivities were converted into pseudo-energies using the **recommended Deigan et al. (2009)** method (slope = 1.8, intercept = –0.6), which is the ViennaRNA default (`--shapeMethod D`).
+
+**MFE (Minimum Free Energy)** refers to the predicted RNA secondary structure with the **lowest free energy (ΔG)**.  
+It represents the most thermodynamically stable structure:
+
+- **More negative ΔG → more stable / likely structure**
+- **Less negative ΔG → less stable / more flexible or unfolded**
+
+ViennaRNA computes the MFE structure using dynamic programming and its thermodynamic energy model.
+
+#### Modeling overview
+
+**Unconstrained model (base model)**
+Uses only the standard Turner nearest-neighbor thermodynamic parameters.  
+This is the pure sequence-based prediction with no experimental input.
+
+**SHAPE-constrained model**
+SHAPE reactivities are transformed into pseudo-energies using the Deigan equation:
+
+\[
+\Delta G_{\text{SHAPE}} = m \cdot \text{reactivity} + b
+\]
+
+**Strong-constraint model**
+Artificially inflated SHAPE values were used to demonstrate over-constraint.  
+This forces unrealistic folds and produces **abnormally low MFE values**,  
+indicating distorted or non-physical structures.
+
+#### Visualizations
+
+**1. Unconstrained folding (thermodynamic base model)**  
+_No SHAPE data applied._
+
+**RNA predicted 2D folding — Unconstrained**
+
+![unconstrained](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_nc.png)
+
+---
+
+**2. Standard SHAPE constraint (recommended settings)**  
+_Deigan method with default slope/intercept._
+
+**RNA predicted 2D folding — Standard SHAPE constraint**
+
+![standard_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_strong.png)
+
+---
+
+**3. Strong / exaggerated constraint**  
+_Over-inflated reactivities forcing extreme pseudo-energies._
+
+**RNA predicted 2D folding — Strong constraint**
+
+![strong_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png)
+
+
+#### Summary
+
+As constraint strength increases:
+
+- **Unconstrained**: natural thermodynamic fold.  
+- **Standard constraints**: SHAPE gently reshapes helices and loops in line with experimental flexibility.  
+- **Strong constraints**: exaggerated pseudo-energies generate unrealistic structures and artificially low MFE.
+
+This comparison highlights why recommended SHAPE parameters provide the most reliable balance between thermodynamics and experimental evidence. The reactivity values used in this section for the RNA measured in 2A3 and DMS experiments are the target values that this competition aims to model using machine learning and deep learning.
+     
 ## RNA 2d Folding Notebook
 <a id="RNA folding-notebook"></a>
 
