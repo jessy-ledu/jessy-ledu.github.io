@@ -249,6 +249,7 @@ SHAPE reactivities are transformed into pseudo-energies using the Deigan equatio
 \[
 \Delta G_{\text{SHAPE}} = m \cdot \text{reactivity} + b
 \]
+In the example below (sequence 1ed6039ffb5c), the constraint had only a low impact on the model's secondary structure prediction, removing only a loop near the 50th base. However, in other sequences not shown here, more drastic changes were observed.
 
 **Strong-constraint model**
 Artificially inflated SHAPE values were used to demonstrate over-constraint.  
