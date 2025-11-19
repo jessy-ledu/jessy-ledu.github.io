@@ -264,7 +264,6 @@ _No SHAPE data applied._
 
 ![unconstrained](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_nc.png)
 
----
 
 **2. Standard SHAPE constraint (recommended settings)**  
 _Deigan method with default slope/intercept._
@@ -273,7 +272,6 @@ _Deigan method with default slope/intercept._
 
 ![standard_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png)
 
----
 
 **3. Strong / exaggerated constraint**  
 _Over-inflated reactivities forcing extreme pseudo-energies._
