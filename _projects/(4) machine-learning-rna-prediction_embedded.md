@@ -271,7 +271,7 @@ _Deigan method with default slope/intercept._
 
 **RNA predicted 2D folding — Standard SHAPE constraint**
 
-![standard_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_strong.png)
+![standard_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png)
 
 ---
 
@@ -280,7 +280,7 @@ _Over-inflated reactivities forcing extreme pseudo-energies._
 
 **RNA predicted 2D folding — Strong constraint**
 
-![strong_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png)
+![strong_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_strong.png)
 
 
 #### Summary
