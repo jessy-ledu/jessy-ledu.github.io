@@ -69,8 +69,8 @@ This section provides a **comprehensive, competition-oriented EDA** to uncover p
 
 This EDA builds the foundation for understanding what signals the models must capture and where additional engineered features may improve performance.
 
-##Results
-### Summary of Key Column Types
+### Results
+#### Summary of Key Column Types
 
 **Sequence Column** — `sequence`
 - Non-null count: **1,643,680**
@@ -93,7 +93,7 @@ This EDA builds the foundation for understanding what signals the models must ca
 - Mean (overall): **0.3223**
 - Std (overall): **1.0992**
 
-### Summary of experiments, sequences, and reactivity data
+#### Summary of experiments, sequences, and reactivity data
 
 The main dataframe used for training the model contains more than **0.8 million RNA sequences**, with each sequence typically measured **twice**, once for each chemical probing experiment. The two probes—**2A3** and **DMS**—are reagents used to quantify RNA structural flexibility, chemically modify RNA on its bases, and the level of modification reflects RNA structural flexibility:
 
@@ -196,7 +196,7 @@ The difference for underrepresented bases is much more pronounced in the 2A3 dat
 ## EDA Notebook
 <a id="EDA-notebook"></a>
 
-Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto from Python 3 code:
+Below, you can view the entire notebook used to generate the visualizations and interpretations:
 
 ---
 <iframe 
@@ -205,4 +205,39 @@ Below, you can view the entire notebook used to generate the visualizations and 
   height="800px"
   frameborder="0">
 </iframe>
+
+---
+
+## RNA 2d Folding Modeling
+
+After exploring the dataset structure and reactivity patterns, the next step is to understand how **RNA secondary structure** contributes to the observed chemical reactivity values.  
+This section introduces the **folding modeling pipeline**, which predicts structural features that can be incorporated as inputs to learning models.
+
+### Objectives
+
+- Generate **secondary structure predictions** using established RNA folding algorithms (minimum free energy folding, partition function, base-pair probabilities)  
+- Extract structural descriptors such as **paired/unpaired status**, **loop contexts**, **accessibility**, and **stability metrics**  
+- Compare predicted structures across different sequences and probe conditions  
+- Visualize structural characteristics alongside observed **reactivity profiles**  
+- Assess whether structural information helps explain reactivity trends and may serve as valuable **features for downstream models**
+
+By combining experimental reactivity measurements with in silico structural predictions, this section provides the structural insights necessary to enrich input representations and improve model performance in subsequent stages.
+
+### Results
+
+## RNA 2d Folding Notebook
+<a id="RNA folding-notebook"></a>
+
+Below, you can view the entire notebook used to generate the visualizations and interpretations:
+
+---
+<iframe 
+  src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/ribonanza-2d-insilico-folding-jld.html"
+  width="100%"
+  height="800px"
+  frameborder="0">
+</iframe>
+
+---
+
 
