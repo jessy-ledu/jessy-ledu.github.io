@@ -200,7 +200,7 @@ Below, you can view the entire notebook used to generate the visualizations and 
 
 ---
 <iframe 
-    src="[https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/ribonanza-eda-jld (2).html"
+    src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/ribonanza-eda-jld (2).html"
     width="100%" 
     height="800px"
     frameborder="0">
