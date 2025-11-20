@@ -349,7 +349,7 @@ This block implements a lightweight, fully linear baseline for SHAPE reactivity:
 - **Fast submission path**  
   `make_submission_from_csv_fast` reuses the learned linear weights to generate predictions directly from sequence-only features for each test sequence, writing the Kaggle submission CSV in a streaming, memory-efficient way.
 
-- **Experiment driver**  
+- **Experiment driver**
   `run_experiment` wires everything together: trains the model with the given hyperparameters, measures runtime, and returns the MAE and the fitted model for further use.
 
  ## Results
@@ -364,7 +364,7 @@ The curve is not strictly monotonic, and improvement slows quickly, suggesting t
 
 ### Full-Dataset Training & Generalization
 
-When trained on the full dataset, the model is able to predict SHAPE reactivities for unseen sequences, including those substantially longer than the sequences observed during training (e.g., >400 nt in the test set).  
+When trained on the full dataset, the model can predict SHAPE reactivities for unseen sequences, including those substantially longer than those observed during training (e.g., >400 nt in the test set).  
 This demonstrates that even a simple linear model can generalize reasonably well to new RNA lengths and compositions.
 
 On Kaggle’s *Stanford Ribonanza* private leaderboard, the model achieved:
@@ -399,4 +399,174 @@ Below, you can view the entire notebook, including the  steps of model design an
 </iframe>
 
 ---
+## Transformer-Based RNA Reactivity Model
 
+After establishing a linear baseline, we progress to a more capable architecture: a **Transformer** designed to model RNA sequences and their structure-dependent chemical reactivity.  
+Transformers are particularly well suited for RNA because they naturally capture **long-range interactions**—a core difficulty of RNA folding—through their self-attention mechanism.
+
+### Why a Transformer?
+
+RNA reactivity depends on **global structural context**: bases hundreds of nucleotides apart may pair, stabilize a helix, or influence local flexibility.  
+Unlike CNNs or RNNs, Transformers:
+
+- use **self-attention** → every position can attend to every other position  
+- learn **pairwise dependencies** without a fixed receptive field  
+- scale to long sequences with stable training dynamics  
+- embed both **local motifs** and **non-local structural influences**
+
+This makes them an excellent fit for modeling SHAPE reactivity, where the signal is a mixture of **local chemistry** and **global secondary structure geometry**.
+
+### Model Architecture Highlights
+
+The implemented model includes:
+
+- **Token embeddings** for nucleotides (A/C/G/U/T)  
+- **Learned positional embeddings**, allowing the model to infer positional bias rather than relying on fixed sinusoidal encodings  
+- **Multi-head self-attention layers** to capture long-range sequence relationships  
+- **Feed-forward blocks** to model nonlinear transformations of local context  
+- **Dual-output heads** for predicting both *DMS-MaP* and *2A3-MaP* reactivities from the same shared representation
+
+This design enables the network to unify sequence-level and experiment-specific patterns.
+
+### Integration of Structural Features (BPP)
+
+To further enhance structural awareness, the model integrates **in silico base-pair probability (BPP) features** derived from the competition’s LinearPartition–EternaFold predictions.
+
+In practice, this introduces:
+
+- the tendency of each nucleotide to be **paired or unpaired**  
+- information about **helix boundaries**, **loop regions**, and **interaction partners**  
+- global constraints that guide the attention maps toward biologically meaningful patterns
+
+These BPP-derived channels give the Transformer an explicit structural prior, complementing the implicit structure learned through attention.
+
+### Training Pipeline
+
+A full **custom training loop** was implemented to maintain flexibility and control:
+
+- mixed-sequence batching with padding and attention masking  
+- masked loss functions to ignore missing ground-truth reactivities  
+- learning-rate warmup and cosine decay for stable convergence  
+- early stopping and validation monitoring  
+- experiment-level stratification to ensure balanced training
+
+The loop was optimized for efficiency on long sequences, ensuring that gradient computation, masking, and GPU memory usage were handled correctly.
+
+### Hyperparameter Exploration
+
+Multiple configurations were explored to identify a balanced architecture:
+
+- embedding size, number of heads, and depth  
+- dropout levels and activation functions  
+- BPP feature combinations  
+- learning rate schedules and optimizer variants (AdamW, Lion)  
+- sequence truncation vs. full-length modeling
+
+This process allowed identification of a model that trains stably, captures broad structural context, and generalizes well to unseen RNAs.
+
+### Performance
+
+Trained end-to-end on the complete competition dataset, the Transformer achieved:
+
+- **Public leaderboard score:** 0.19221  
+- **Private leaderboard score:** 0.20778  
+- **Final rank:** **189 / ~750 teams**
+
+The close alignment of public and private scores demonstrates robust generalization across both short and long test sequences. The ranking reflects a strong performance in a high-complexity task, validating the architecture choices, feature integration, and training methodology.
+
+**Plot of the model structure**  
+![model structure](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/best_model_custom_bg.png)
+
+---
+
+This model showcases an effective combination of **attention-driven long-range modeling**, **structural prior integration**, and **carefully engineered training systems**, providing a competitive and well-optimized solution for RNA chemical reactivity prediction.
+
+
+
+## Results and Interpretation
+
+## Training Summary
+
+The model shows smooth convergence over 20 epochs, with both training and validation losses decreasing consistently.  
+This indicates stable learning and good generalization during training.
+
+```text
+Epoch 1/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 146s 59ms/step - loss: 0.0604 - masked_mae_metric: 0.6936 - val_loss: 0.0483 - val_masked_mae_metric: 0.5707
+Epoch 2/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0477 - masked_mae_metric: 0.5622 - val_loss: 0.0465 - val_masked_mae_metric: 0.5496
+Epoch 3/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0467 - masked_mae_metric: 0.5518 - val_loss: 0.0459 - val_masked_mae_metric: 0.5434
+```
+<details> <summary><strong>Show full training log</strong></summary>
+     
+```text
+Epoch 4/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0460 - masked_mae_metric: 0.5445 - val_loss: 0.0456 - val_masked_mae_metric: 0.5401
+Epoch 5/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0455 - masked_mae_metric: 0.5396 - val_loss: 0.0449 - val_masked_mae_metric: 0.5330
+Epoch 6/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 115s 55ms/step - loss: 0.0449 - masked_mae_metric: 0.5334 - val_loss: 0.0443 - val_masked_mae_metric: 0.5271
+Epoch 7/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0443 - masked_mae_metric: 0.5270 - val_loss: 0.0428 - val_masked_mae_metric: 0.5127
+Epoch 8/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0423 - masked_mae_metric: 0.5068 - val_loss: 0.0407 - val_masked_mae_metric: 0.4897
+Epoch 9/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0405 - masked_mae_metric: 0.4882 - val_loss: 0.0396 - val_masked_mae_metric: 0.4789
+Epoch 10/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0394 - masked_mae_metric: 0.4773 - val_loss: 0.0388 - val_masked_mae_metric: 0.4707
+Epoch 11/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0388 - masked_mae_metric: 0.4706 - val_loss: 0.0385 - val_masked_mae_metric: 0.4670
+Epoch 12/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0383 - masked_mae_metric: 0.4659 - val_loss: 0.0381 - val_masked_mae_metric: 0.4643
+Epoch 13/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 117s 55ms/step - loss: 0.0380 - masked_mae_metric: 0.4625 - val_loss: 0.0379 - val_masked_mae_metric: 0.4612
+Epoch 14/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0377 - masked_mae_metric: 0.4599 - val_loss: 0.0377 - val_masked_mae_metric: 0.4595
+Epoch 15/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0376 - masked_mae_metric: 0.4583 - val_loss: 0.0375 - val_masked_mae_metric: 0.4575
+Epoch 16/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0374 - masked_mae_metric: 0.4558 - val_loss: 0.0374 - val_masked_mae_metric: 0.4567
+Epoch 17/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0372 - masked_mae_metric: 0.4547 - val_loss: 0.0373 - val_masked_mae_metric: 0.4556
+Epoch 18/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0371 - masked_mae_metric: 0.4528 - val_loss: 0.0373 - val_masked_mae_metric: 0.4551
+Epoch 19/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0370 - masked_mae_metric: 0.4521 - val_loss: 0.0373 - val_masked_mae_metric: 0.4548
+Epoch 20/20
+2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0370 - masked_mae_metric: 0.4527 - val_loss: 0.0372 - val_masked_mae_metric: 0.4546
+```
+</details>
+
+
+The Transformer-based RNA reactivity model demonstrates strong, stable learning across 20 epochs.  
+Training and validation curves decrease in parallel throughout optimization, indicating effective learning and excellent generalization. The model adapts quickly in the early epochs and refines steadily thereafter, a characteristic of well-behaved sequence models trained with positional embeddings.
+
+After full training—including integration of competition-provided BPP structural features—the model produced competitive results on the Kaggle *Stanford Ribonanza RNA Folding* challenge:
+
+- **Public leaderboard score:** 0.19221  
+- **Private leaderboard score:** 0.20778  
+- **Final standing:** **Rank 189 / ~750 teams**
+
+The tight match between public and private scores reflects robust generalization to unseen sequences, including RNAs substantially longer or structurally more complex than those in the training set. This also highlights the benefit of combining sequence-level embeddings with in silico structural priors such as base-pair probabilities, which help the model capture pairing-driven patterns underlying SHAPE reactivity.
+
+Overall, the results confirm that the model effectively leverages both nucleotide composition and structural context to predict per-position reactivity accurately. Its leaderboard placement reflects solid, reliable performance on a demanding biophysical prediction task.
+
+---
+
+Below, you can view both notebooks (model creation and training; prediction), including the steps of model design, extra feature addition, training, and predictions:
+
+---
+<iframe 
+  src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/stanford-ribonanza-rna-folding-dl-in-silico-bpp.html"
+  width="100%"
+  height="800px"
+  frameborder="0">
+</iframe>
+---
+<iframe 
+  src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/stanford-ribonanza-rna-folding-dl-in-silico-pred.html"
+  width="100%"
+  height="800px"
+  frameborder="0">
+</iframe>
