@@ -307,4 +307,96 @@ Below, you can view the entire notebook used to generate the visualizations and 
 
 ---
 
+## Lightweight Linear Baseline (scikit-learn)
+
+Before moving to deep learning architectures, it is instructive to establish a simple and efficient baseline model using **scikit-learn**.  
+This section develops a lightweight linear predictor to demonstrate how classical machine-learning techniques perform on the RNA reactivity task—and why they ultimately struggle with the long-range dependencies inherent to RNA structure.
+
+### Objectives
+
+- Apply standard **scikit-learn workflows** for preprocessing, sparse vectorization, batching, and model training  
+- Convert RNA sequences into **memory-efficient sparse encodings**, using hashing tricks and Compressed Sparse Row (CSR) matrices to handle long sequences  
+- Train a fast and interpretable **linear model** (SGDRegressor) suitable for rapid experimentation  
+- Evaluate performance and highlight the limitations of linear approaches for modeling **long-range interactions** and **context-dependent signals** in RNA  
+- Provide a clean, minimal pipeline for generating predictions and preparing Kaggle-ready submissions
+
+This lightweight baseline shows how far a linear model can go when fed with engineered sparse features, while also motivating the shift toward **deep neural architectures**, which naturally capture sequence patterns, positional context, and structural dependencies that are difficult or impossible to express through manual encoding alone.
+
+## Linear SHAPE Model — Features, Training & Inference
+
+This block implements a lightweight, fully linear baseline for SHAPE reactivity:
+
+- **Data expansion**  
+  Each sequence is expanded to per-base rows via `make_per_base_rows`, discarding invalid or missing targets.
+
+- **Feature design (sparse)**  
+  `to_sparse_design` builds a sparse matrix with:
+  - one-hot base identity (A/C/G/U),
+  - normalized position along the sequence,
+  - one-hot experiment label (DMS / 2A3).
+
+- **Model & optimization**  
+  `fit_sgd_on_df` trains an `SGDRegressor` with:
+  - L2-regularized linear regression,
+  - inverse-scaling learning rate,
+  - mini-batches over sequences and per-base shuffling,
+  - optional callback for tracking epoch-wise loss.
+
+- **Evaluation & splits**  
+  `split_by_seq` creates train/validation splits at the **sequence level** (no leakage across bases),  
+  and `evaluate_on_df` reports Mean Absolute Error (MAE) on a validation subset.
+
+- **Fast submission path**  
+  `make_submission_from_csv_fast` reuses the learned linear weights to generate predictions directly from sequence-only features for each test sequence, writing the Kaggle submission CSV in a streaming, memory-efficient way.
+
+- **Experiment driver**  
+  `run_experiment` wires everything together: trains the model with the given hyperparameters, measures runtime, and returns the MAE and the fitted model for further use.
+
+ ## Results
+
+### Linear SHAPE Model — Trained on a Subset of the Data
+
+The plot below shows the epoch-wise training loss for the linear SHAPE model.  
+The loss decreases over the first few epochs, indicating that the model learns meaningful trends in the data.  
+The curve is not strictly monotonic, and improvement slows quickly, suggesting that the model fits most of the learnable signal early and begins to overfit afterward.
+
+![training epochs](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/Simple_linear_model_epoch_loss.png)
+
+### Full-Dataset Training & Generalization
+
+When trained on the full dataset, the model is able to predict SHAPE reactivities for unseen sequences, including those substantially longer than the sequences observed during training (e.g., >400 nt in the test set).  
+This demonstrates that even a simple linear model can generalize reasonably well to new RNA lengths and compositions.
+
+On Kaggle’s *Stanford Ribonanza* private leaderboard, the model achieved:
+
+- **Public score:** 0.27300  
+- **Private score:** 0.27290  
+- **Final rank:** 611 / 756  
+
+The nearly identical public/private scores show **no significant overfitting**, but the overall ranking remains low.  
+This is expected: the model uses only basic per-base features (base identity, position, and experiment label) and a simple linear regression optimizer, without any structural features, signal smoothing, or deep learning.
+
+### Takeaway
+
+Despite its simplicity, the model captures a surprising amount of signal in the SHAPE dataset.  
+It serves as a clear demonstration that:
+
+- RNA reactivity patterns contain predictable linear components,  
+- sparse feature engineering can scale to very long sequences, and  
+- even a basic model provides a strong baseline for understanding the data before moving to more expressive architectures.
+
+## Lightweight Linear Baseline Notebook
+<a id="RNA folding-notebook"></a>
+
+Below, you can view the entire notebook, including the  steps of model design and training:
+
+---
+<iframe 
+  src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/stanford-ribonanza-rna-folding-jessy-ledu-carree.html"
+  width="100%"
+  height="800px"
+  frameborder="0">
+</iframe>
+
+---
 
