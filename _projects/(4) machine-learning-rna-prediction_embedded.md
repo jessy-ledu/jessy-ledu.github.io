@@ -218,8 +218,8 @@ Below is the notebook used to generate the visualizations and interpretations:
 
 ## RNA 2D Folding Modeling
 
-After exploring the dataset structure and reactivity patterns, the next step is to understand how **RNA secondary structure** contributes to the observed chemical reactivity values.  
-This section introduces the **folding modeling pipeline**, which predicts structural features that can be incorporated as inputs to learning models.
+After exploring the dataset structure and reactivity patterns, the next step is to understand the interaction between **RNA secondary structure** and the observed chemical reactivity values.  
+This section introduces the **folding modeling pipeline**, which predicts RNA structural features from the training dataset.
 
 ### Objectives
 
@@ -229,40 +229,32 @@ This section introduces the **folding modeling pipeline**, which predicts struct
 - Visualize structural characteristics alongside observed **reactivity profiles**  
 - Assess whether structural information helps explain reactivity trends and may serve as valuable **features for downstream models**
 
-By combining experimental reactivity measurements with in silico structural predictions, this section provides the structural insights necessary to enrich input representations and improve model performance in subsequent stages.
+By combining experimental reactivity measurements with in silico structural predictions, this section provides structural insights that can enrich input representations and improve model performance in subsequent stages.
 
-### Results
+### Method and description of the model
 
-Below are examples of RNA secondary structures predicted with the ViennaRNA package under three conditions: **no SHAPE constraints**, **standard SHAPE constraints**, and **exaggerated (“strong”) constraints**.  
+RNA secondary structures were predicted with the ViennaRNA package under three conditions: **(1) no SHAPE constraints**, **(2) standard SHAPE constraints**, and **(3) exaggerated (“strong”) constraints**.
 
-SHAPE reactivities were converted into pseudo-energies using the **recommended Deigan et al. (2009)** method (slope = 1.8, intercept = –0.6), which is the ViennaRNA default (`--shapeMethod D`).
-
-**MFE (Minimum Free Energy)** refers to the predicted RNA secondary structure with the **lowest free energy (ΔG)**.  
-It represents the most thermodynamically stable structure:
-
-- **More negative ΔG → more stable / likely structure**
-- **Less negative ΔG → less stable / more flexible or unfolded**
-
-ViennaRNA computes the MFE structure using dynamic programming and its thermodynamic energy model.
+**Minimum Free Energy (MFE)** structures represent the most thermodynamically stable predicted folds.  
+More negative ΔG values indicate greater stability, while less negative values suggest increased flexibility or partial unfolding. ViennaRNA computes these structures using dynamic programming and the Turner nearest-neighbor energy model.
 
 #### Modeling overview
 
-**Unconstrained model (base model)**
-Uses only the standard Turner nearest-neighbor thermodynamic parameters.  
-This is the pure sequence-based prediction with no experimental input.
+**Unconstrained model (base prediction)**  
+This model uses only sequence information and standard thermodynamic parameters, without any experimental input.
 
-**SHAPE-constrained model**
-SHAPE reactivities are transformed into pseudo-energies using the Deigan equation:
+**SHAPE-constrained model**  
+ SHAPE reactivities were converted into pseudo-energies using the **Deigan et al. (2009)** approach and the default ViennaRNA method (`--shapeMethod D`), using the following equation:
 
-\[
+$$
 \Delta G_{\text{SHAPE}} = m \cdot \text{reactivity} + b
-\]
-In the example below (sequence 1ed6039ffb5c), the constraint had only a low impact on the model's secondary structure prediction, removing only a loop near the 50th base. However, in other sequences not shown here, more drastic changes were observed.
+$$
 
-**Strong-constraint model**
-Artificially inflated SHAPE values were used to demonstrate over-constraint.  
-This forces unrealistic folds and produces **abnormally low MFE values**,  
-indicating distorted or non-physical structures.
+Specifically for the constrained method, the recommended parameters were used: slope = 1.8, intercept = –0.6
+Note that in the example shown below (sequence 1ed6039ffb5c), SHAPE information produced only a modest change—removal of a small loop near base 50—although other sequences (not shown) exhibited more substantial modifications.
+
+**Strong-constraint model**  
+Here, SHAPE values were intentionally amplified to illustrate over-constraint. This forces unrealistic structural conformations and yields **artificially low MFE values**, reflecting distorted, non-physical folds.
 
 #### Visualizations
 
@@ -273,6 +265,7 @@ _No SHAPE data applied._
 
 ![unconstrained](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_nc.png)
 
+In this representation, several common structures are depicted, such as an internal loop (e.g., bases 51-53 and 62-64), a hairpin loop (e.g., bases 54-61), and a multi-branch loop (e.g., bases 30-35, 58, 106, and 126).
 
 **2. Standard SHAPE constraint (recommended settings)**  
 _Deigan method with default slope/intercept._
@@ -281,9 +274,13 @@ _Deigan method with default slope/intercept._
 
 ![standard_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png)
 
+As noted in the method, in this example, the constrained structure appears very similar to the unconstrained structure; however, the internal loop between bases 51-53 and 62-64 was removed.
+Base positions with the highest measured reactivities (red on the reactivity scale) were commonly located in loops, such as the one between bases 106 and 126, indicating the strong influence of the in silico-predicted structure on reactivity. This observation is critical because it underscores the need to incorporate structural properties into the final model for improved prediction.
 
-**3. Strong / exaggerated constraint**  
+**3. Strong/exaggerated constraint**  
 _Over-inflated reactivities forcing extreme pseudo-energies._
+
+This exaggerated-constraint example highlights a tendency for SHAPE reactivities to over-constrain the model when parameters are pushed too far above recommended values for slope (1.8) and intercept (–0.6): moderate-to-high reactivities are forced into loops, producing an unrealistic fold. As a result, the predicted structure becomes highly unstable, reflected by the MFE increasing from approximately –70 in the standard SHAPE-constrained model to about –33 in the strongly constrained model for the example shown here.
 
 **RNA predicted 2D folding — Strong constraint**
 
@@ -298,9 +295,9 @@ As constraint strength increases:
 - **Standard constraints**: SHAPE gently reshapes helices and loops in line with experimental flexibility.  
 - **Strong constraints**: exaggerated pseudo-energies generate unrealistic structures and artificially low MFE.
 
-This comparison highlights why recommended SHAPE parameters provide the most reliable balance between thermodynamics and experimental evidence. The reactivity values used in this section for the RNA measured in 2A3 and DMS experiments are the target values that this competition aims to model using machine learning and deep learning.
+This comparison highlights why recommended SHAPE parameters provide the most reliable balance between thermodynamics and experimental evidence. The reactivity values used in this section for the RNA measured in 2A3 and DMS experiments are the target values this competition aims to model using machine learning and deep learning, and are strongly correlated with the RNA's 2D structure, such as loops.
      
-## RNA 2d Folding Notebook
+### RNA 2d Folding Notebook
 <a id="RNA folding-notebook"></a>
 
 Below, you can view the entire notebook used to generate the visualizations and interpretations:
