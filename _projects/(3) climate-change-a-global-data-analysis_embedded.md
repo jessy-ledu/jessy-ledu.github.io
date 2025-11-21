@@ -175,8 +175,12 @@ To explain the observed global trend—or at least to identify variables that co
 
 I compute the **average annual population growth rate** using:
 
-**Average Annual Growth Rate (% per year)** is computed as:  
-$ \text{Growth Rate (\%/year)} = \frac{\ln(P_{\text{end}}) - \ln(P_{\text{start}})}{\text{years}} \times 100 $
+**Average Annual Growth Rate (% per year)** is computed as:
+
+$$
+\text{Growth Rate} = 
+\frac{\ln(P_{end}) - \ln(P_{start})}{\text{years}} \times 100
+$$
 
 
 This assumes **exponential growth** and enables fair comparison across countries.
