@@ -19,38 +19,42 @@ This project was developed for the  [**Stanford Ribonanza RNA Folding Challenge*
 
 It showcases the application of **machine learning**, **deep learning**, and **feature engineering** to real biological data for scientific and bioengineering purposes.
 
-### What I Built
-
-- **Scikit-learn baseline model** for interpretable performance benchmarking  
-- **Custom Transformer architecture (TensorFlow/Keras)** capturing long-range nucleotide dependencies  
-- **In-silico structural feature integration** to enrich predictive signal  
-
-Together, these components form a complete and technically rigorous modeling pipeline.
-
 ### The Data
 
 Training data comes from the Ribonanza competition and includes:
 
-- RNA sequences  
-- Experimental chemical reactivity profiles  
-- Supplemental in-silico structural predictions  
+- RNA sequences (train and test datasets)
+- Experimental chemical reactivity profiles (known only for the train dataset) 
+- Supplemental in-silico structural predictions (useful for feature engineering)  
 
-These measurements reflect the multiple 2D structures an RNA molecule can form, making them ideal for ML-based prediction.
+These reactivity profile measurements help guide predictions of RNA secondary structure. However, obtaining them experimentally is costly and time-consuming. Accurate in silico prediction of reactivity represents a major advance, enabling faster access to RNA 2D structures, improving our understanding of their biological properties, and accelerating the development of new RNA-based applications.
+
 
 ### Goals of the Project
 
 - Predict RNA 2D structural reactivity from sequence  
 - Compare traditional ML models with advanced deep-learning architectures  
 - Demonstrate the impact of **feature engineering** and **attention mechanisms**  
-- Provide a clean, reproducible notebook for portfolio or Kaggle publication  
+- Provide a complete, reproducible pipeline for per-base RNA 2D reactivity prediction
+
+### What Was Built
+
+- **Exploratory Data Analysis (EDA):** characterization of dataset properties and distributions of key variables  
+- **2D structure modeling:** integration of reactivity information to guide RNA folding from sequence  
+- **Scikit-learn baseline model:** simple, interpretable benchmark for initial predictive performance
+- **Custom Transformer architecture (TensorFlow/Keras):** capturing long-range nucleotide interactions for improved accuracy  
+- **In silico structural feature integration:** incorporation of base-pair probabilities to strengthen the predictive signal  
+
+
+Together, these components form a complete and technically rigorous modeling pipeline.
+
 
 ---
 
-This notebook presents a complete workflow—from preprocessing to modeling and evaluation—highlighting both **ML engineering** and **biological insight**.
+This project presents a complete workflow—from preprocessing to modeling and evaluation—highlighting both **ML engineering** and **biological insight**.
 
 > **Note:**  
-> This is an exploratory portfolio project.  
-> While the models perform well for the competition context, this work is not intended as peer-reviewed scientific research.
+> This document is intended for demonstration and analysis as a portfolio project. The work is not presented as peer-reviewed scientific research.
 
 ---
 
@@ -65,7 +69,7 @@ This section provides a **comprehensive, competition-oriented EDA** to uncover p
 - Identify missing values and experimental variations  
 - Analyze **RNA sequence characteristics** such as length distributions and base composition  
 - Visualize **reactivity patterns** across nucleotide positions, sequence classes, and base types (A, C, G, U)  
-- Derive insights that inform downstream **feature engineering**, model selection, and hyperparameter design  
+- Collect insights that inform **feature engineering**, model selection, and hyperparameter design  
 
 This EDA builds the foundation for understanding what signals the models must capture and where additional engineered features may improve performance.
 
@@ -95,10 +99,15 @@ This EDA builds the foundation for understanding what signals the models must ca
 
 #### Summary of experiments, sequences, and reactivity data
 
-The main dataframe used for training the model contains more than **0.8 million RNA sequences**, with each sequence typically measured **twice**, once for each chemical probing experiment. The two probes—**2A3** and **DMS**—are reagents used to quantify RNA structural flexibility, chemically modify RNA on its bases, and the level of modification reflects RNA structural flexibility:
+The main dataframe used for training the model contains more than **0.8 million RNA sequences**, with each sequence typically measured **twice**, once for each chemical probing experiment. The two probes—**2A3** and **DMS**—are reagents used to quantify RNA structural flexibility by chemically modifying RNA bases. The intensity and the position of modification reflect the RNA structural flexibility:
 
-- **2A3** is a SHAPE-like reagent that modifies **flexible or unpaired nucleotides**, with broad sensitivity across **A, C, G, and U**, reflecting backbone dynamics rather than base identity.
-- **DMS (dimethyl sulfate)** selectively methylates the Watson–Crick edges of **adenines (A)** and **cytosines (C)** when they are **unpaired and solvent-accessible**, making it a probe specific to these two bases.
+- **2A3** is a SHAPE-like reagent that reports on **backbone flexibility** across **all nucleotides (A, C, G, U)**.  
+  - **Signal:** quantitative SHAPE reactivities reflecting how **flexible or constrained** each position is.  
+  - **Use case:** excellent for **global secondary-structure modeling**, where continuous reactivity values guide RNA folding algorithms.
+
+- **DMS (dimethyl sulfate)** selectively methylates the Watson–Crick edges of **adenines (A)** and **cytosines (C)** when they are **unpaired and solvent-accessible**.  
+  - **Signal:** base-specific information about **A/C pairing status** and **solvent exposure**.  
+  - **Use case:** identifying **single-stranded vs. double-stranded** regions at **specific nucleotides**, complementing SHAPE-like signals.
 
 Some sequences appear multiple times because they were measured more than once with the same probe (technical replicates).
 
@@ -117,7 +126,7 @@ Missing reactivity values per position
 
 Most sequences are 170-180 bases long (left of the figure below); therefore, the training dataset has limited sequence length diversity. Nevertheless, the model must be designed to adapt to variable sequence length; for example, the test dataset contains sequences up to 400 bases, as reported in the Kaggle competition description.
 
-The proportions of each base across sequences are as expected, with C, G, and U occurring at similar frequencies and a consistent bias toward higher A content (to the right of the figure below). This enrichment in adenines is common in biological RNA samples and can be further amplified by experimental or library-design biases.
+The proportions of each base across sequences are as expected (right of the figure below), with C, G, and U occurring at similar frequencies and a consistent bias toward higher A content. This enrichment in adenines is common in biological RNA samples and can be further amplified by experimental or library-design biases.
 
 <div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
   Sequence Length Distribution and Base Composition
@@ -169,10 +178,9 @@ The data and plot below indicate that the mean reactivity across most positions 
   </tr>
 </table>
 
+As shown in the left panel of the figure below, the experiment type has only a small effect on the overall distribution of reactivity values per position. However, when nucleotides are considered separately (right panel), distinct patterns emerge. Under the DMS experiment, bases A and C show higher reactivity values, reaching approximately 0.7 and 0.5, respectively. In the 2A3 experiment, U and A exhibit the highest reactivity, at around 0.5 and 0.4, respectively.
 
-As shown in the left panel of the figure below, the experiment type has only a small effect on the overall distribution of reactivity values per position. However, when nucleotides are considered separately (right panel), distinct patterns emerge. Under the 2A3 experiment, bases **A** and **C** show higher reactivity values, reaching approximately 0.7 and 0.5, respectively. In the DMS experiment, **U** and **A** exhibit the highest reactivity, at around 0.5 and 0.4, respectively.
-
-The difference for underrepresented bases is much more pronounced in the 2A3 dataset, where **G** and **U** show reactivity values below 0.1. This is expected, as the 2A3 probe preferentially modifies **A** and **C** positions. In contrast, the DMS experiment shows a less constrained pattern, with **G** and **C** reaching reactivity values of approximately 0.3 and 0.2, respectively.
+The difference for underrepresented bases is much more pronounced in the DMS dataset, where G and U show reactivity values below 0.1. This is expected, as the DMS probe modifies A and C positions, not G or U. In contrast, the 2A3 experiment shows a less constrained pattern, with G and C reaching reactivity values of approximately 0.3 and 0.2, respectively. For 2A3, the observed base-dependent differences reflect differences in backbone flexibility across sequence contexts rather than intrinsic chemical selectivity.
 
   <div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
   Reactivity value distribution per position for all sequences, discriminated by experiments
@@ -193,10 +201,10 @@ The difference for underrepresented bases is much more pronounced in the 2A3 dat
   </tr>
 </table>
 
-## EDA Notebook
+### EDA Notebook
 <a id="EDA-notebook"></a>
 
-Below, you can view the entire notebook used to generate the visualizations and interpretations:
+Below is the notebook used to generate the visualizations and interpretations:
 
 ---
 <iframe 
@@ -208,7 +216,7 @@ Below, you can view the entire notebook used to generate the visualizations and 
 
 ---
 
-## RNA 2d Folding Modeling
+## RNA 2D Folding Modeling
 
 After exploring the dataset structure and reactivity patterns, the next step is to understand how **RNA secondary structure** contributes to the observed chemical reactivity values.  
 This section introduces the **folding modeling pipeline**, which predicts structural features that can be incorporated as inputs to learning models.
@@ -371,7 +379,7 @@ On Kaggle’s *Stanford Ribonanza* private leaderboard, the model achieved:
 
 - **Public score:** 0.27300  
 - **Private score:** 0.27290  
-- **Final rank:** 611 / 756  
+- **Final rank:** 611 / ~750 teams 
 
 The nearly identical public/private scores show **no significant overfitting**, but the overall ranking remains low.  
 This is expected: the model uses only basic per-base features (base identity, position, and experiment label) and a simple linear regression optimizer, without any structural features, signal smoothing, or deep learning.
@@ -401,95 +409,84 @@ Below, you can view the entire notebook, including the  steps of model design an
 ---
 ## Transformer-Based RNA Reactivity Model
 
-After establishing a linear baseline, we progress to a more capable architecture: a **Transformer** designed to model RNA sequences and their structure-dependent chemical reactivity.  
-Transformers are particularly well suited for RNA because they naturally capture **long-range interactions**—a core difficulty of RNA folding—through their self-attention mechanism.
+After establishing a linear baseline, we move to a more capable architecture: a **Transformer** designed to model RNA sequences and their structure-dependent chemical reactivity.  
+Transformers naturally capture **long-range interactions**—a key challenge in RNA folding—through self-attention.
 
-### Why a Transformer?
+### Choice for Transformer model
 
-RNA reactivity depends on **global structural context**: bases hundreds of nucleotides apart may pair, stabilize a helix, or influence local flexibility.  
-Unlike CNNs or RNNs, Transformers:
+RNA reactivity depends on **global structural context**: bases far apart in sequence may pair, stabilize helices, or modulate local flexibility.  
+Compared to CNNs or RNNs, Transformers:
 
-- use **self-attention** → every position can attend to every other position  
-- learn **pairwise dependencies** without a fixed receptive field  
-- scale to long sequences with stable training dynamics  
-- embed both **local motifs** and **non-local structural influences**
+- use **self-attention**, allowing every position to attend to every other  (Vaswani et al., 2017)
+- learn **pairwise dependencies** without fixed receptive fields  
+- scale well to long sequences with stable training  
+- unify both **local motifs** and **non-local structural influences**
 
-This makes them an excellent fit for modeling SHAPE reactivity, where the signal is a mixture of **local chemistry** and **global secondary structure geometry**.
+This makes them well suited for SHAPE reactivity, which reflects a mixture of **local chemistry** and **global RNA geometry**.
 
 ### Model Architecture Highlights
 
-The implemented model includes:
+The model includes:
 
 - **Token embeddings** for nucleotides (A/C/G/U/T)  
-- **Learned positional embeddings**, allowing the model to infer positional bias rather than relying on fixed sinusoidal encodings  
-- **Multi-head self-attention layers** to capture long-range sequence relationships  
-- **Feed-forward blocks** to model nonlinear transformations of local context  
-- **Dual-output heads** for predicting both *DMS-MaP* and *2A3-MaP* reactivities from the same shared representation
+- **Learned positional embeddings**, capturing positional bias more flexibly than sinusoidal encodings  
+- **Multi-head self-attention** for long-range interactions  
+- **Feed-forward blocks** for nonlinear transformation of local context  
+- **Dual-output heads** predicting both *DMS-MaP* and *2A3-MaP* reactivities from a shared representation
 
-This design enables the network to unify sequence-level and experiment-specific patterns.
+This design unifies sequence-level and experiment-specific patterns.
 
 ### Integration of Structural Features (BPP)
 
-To further enhance structural awareness, the model integrates **in silico base-pair probability (BPP) features** derived from the competition’s LinearPartition–EternaFold predictions.
+To enhance structural awareness, the model incorporates **base-pair probability (BPP) features** from LinearPartition–EternaFold.  
+These channels provide:
 
-In practice, this introduces:
+- tendencies of nucleotides to be **paired or unpaired**  
+- cues about **helix boundaries**, **loops**, and **interaction partners**  
+- global constraints that encourage biologically meaningful attention patterns
 
-- the tendency of each nucleotide to be **paired or unpaired**  
-- information about **helix boundaries**, **loop regions**, and **interaction partners**  
-- global constraints that guide the attention maps toward biologically meaningful patterns
-
-These BPP-derived channels give the Transformer an explicit structural prior, complementing the implicit structure learned through attention.
+BPP features act as explicit structural priors, complementing the structure the Transformer learns implicitly.
 
 ### Training Pipeline
 
-A full **custom training loop** was implemented to maintain flexibility and control:
+A custom **training loop** provides full control and efficiency:
 
-- mixed-sequence batching with padding and attention masking  
-- masked loss functions to ignore missing ground-truth reactivities  
-- learning-rate warmup and cosine decay for stable convergence  
+- mixed-sequence batching with padding and attention masks  
+- masked losses to ignore missing reactivities  
+- learning-rate warmup + cosine decay for stable convergence  
 - early stopping and validation monitoring  
-- experiment-level stratification to ensure balanced training
+- experiment-level stratification for balanced sampling
 
-The loop was optimized for efficiency on long sequences, ensuring that gradient computation, masking, and GPU memory usage were handled correctly.
+This setup ensures efficient training on long sequences while maintaining correct masking and memory usage.
 
 ### Hyperparameter Exploration
 
-Multiple configurations were explored to identify a balanced architecture:
+A range of configurations was explored:
 
 - embedding size, number of heads, and depth  
-- dropout levels and activation functions  
+- dropout and activation choices  
 - BPP feature combinations  
-- learning rate schedules and optimizer variants (AdamW, Lion)  
-- sequence truncation vs. full-length modeling
+- learning-rate schedules and optimizers (AdamW, Lion)  
+- full-length vs. truncated sequences
 
-This process allowed identification of a model that trains stably, captures broad structural context, and generalizes well to unseen RNAs.
+This helped identify a model that trains stably, captures broad structural context, and generalizes well.
 
-### Performance
-
-Trained end-to-end on the complete competition dataset, the Transformer achieved:
-
-- **Public leaderboard score:** 0.19221  
-- **Private leaderboard score:** 0.20778  
-- **Final rank:** **189 / ~750 teams**
-
-The close alignment of public and private scores demonstrates robust generalization across both short and long test sequences. The ranking reflects a strong performance in a high-complexity task, validating the architecture choices, feature integration, and training methodology.
-
-**Plot of the model structure**  
+**Model structure**  
 ![model structure](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/best_model_custom_bg.png)
 
 ---
 
-This model showcases an effective combination of **attention-driven long-range modeling**, **structural prior integration**, and **carefully engineered training systems**, providing a competitive and well-optimized solution for RNA chemical reactivity prediction.
+This model combines **attention-driven long-range modeling**, **structural priors**, and a **carefully engineered training process**, resulting in a competitive solution for RNA reactivity prediction.
 
-
+---
 
 ## Results and Interpretation
 
-## Training Summary
+### Training Summary
 
-The model shows smooth convergence over 20 epochs, with both training and validation losses decreasing consistently.  
-This indicates stable learning and good generalization during training.
+The model converges smoothly over 20 epochs, with training and validation losses decreasing in parallel—evidence of stable optimization and good generalization.
 
+Below is the output of the callbacks implemented in the custom loop:
 ```text
 Epoch 1/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 146s 59ms/step - loss: 0.0604 - masked_mae_metric: 0.6936 - val_loss: 0.0483 - val_masked_mae_metric: 0.5707
@@ -538,23 +535,41 @@ Epoch 20/20
 ```
 </details>
 
+The model adapts quickly in early epochs and refines steadily afterward, characteristic of well-behaved Transformer architectures with positional embeddings.
+The leaderboard results above confirm robust generalization to unseen sequences, including long and structurally complex RNAs. Integrating sequence embeddings with structural priors helps the model capture pairing-driven patterns underlying SHAPE reactivity.
 
-The Transformer-based RNA reactivity model demonstrates strong, stable learning across 20 epochs.  
-Training and validation curves decrease in parallel throughout optimization, indicating effective learning and excellent generalization. The model adapts quickly in the early epochs and refines steadily thereafter, a characteristic of well-behaved sequence models trained with positional embeddings.
+**Predicted per-nucleotide reactivities for positions 83–92**
+To illustrate the expected submission format used in the competition, the table below shows an example of predicted per-nucleotide reactivities for positions **83–92** of the first test sequence:
 
-After full training—including integration of competition-provided BPP structural features—the model produced competitive results on the Kaggle *Stanford Ribonanza RNA Folding* challenge:
+| id | position | reactivity_DMS_MaP | reactivity_2A3_MaP |
+|----|----------|---------------------|----------------------|
+| 0  | 83       | 0.907742            | 0.483126             |
+| 1  | 84       | 1.000000            | 0.337327             |
+| 2  | 85       | 1.000000            | 0.608149             |
+| 3  | 86       | 1.000000            | 0.629284             |
+| 4  | 87       | 0.747881            | 0.416566             |
+| 5  | 88       | 0.695782            | 0.365180             |
+| 6  | 89       | 0.083515            | 0.451226             |
+| 7  | 90       | 0.084782            | 0.449359             |
+| 8  | 91       | 0.020680            | 0.365435             |
+| 9  | 92       | 0.450738            | 0.173991             |
 
-- **Public leaderboard score:** 0.19221  
-- **Private leaderboard score:** 0.20778  
-- **Final standing:** **Rank 189 / ~750 teams**
 
-The tight match between public and private scores reflects robust generalization to unseen sequences, including RNAs substantially longer or structurally more complex than those in the training set. This also highlights the benefit of combining sequence-level embeddings with in silico structural priors such as base-pair probabilities, which help the model capture pairing-driven patterns underlying SHAPE reactivity.
+### Performance
 
-Overall, the results confirm that the model effectively leverages both nucleotide composition and structural context to predict per-position reactivity accurately. Its leaderboard placement reflects solid, reliable performance on a demanding biophysical prediction task.
+Trained end-to-end on the full competition dataset, the Transformer achieved:
+
+- **Public LB:** 0.19221  
+- **Private LB:** 0.20778  
+- **Final rank:** **189 / ~750 teams**
+
+The close public/private scores indicate strong generalization across RNAs of varying length and complexity.
+
+Overall, the model effectively leverages both nucleotide composition and structural context to accurately predict per-nucleotide reactivity. Its competition placement reflects solid performance on a challenging biophysical prediction task.
 
 ---
 
-Below, you can view both notebooks (model creation and training; prediction), including the steps of model design, extra feature addition, training, and predictions:
+Below are both notebooks—model creation/training and inference:
 
 ---
 <iframe 
@@ -570,3 +585,51 @@ Below, you can view both notebooks (model creation and training; prediction), in
   height="800px"
   frameborder="0">
 </iframe>
+
+---
+
+## Conclusion
+
+This project built a complete pipeline for **predicting RNA chemical reactivity**, from data exploration and structural analysis to classical machine learning and culminating in a high-performance Transformer model.
+
+### What Was Done
+
+- **EDA:** characterized reactivity distributions, sequence lengths, and missing data.  
+- **2D Structure modelisation:** by combining experimental reactivity measurements with in silico structural predictions.
+- **Baseline ML Model:** a simple scikit-learn linear regressor provided interpretable but limited predictions.  
+- **Deep Learning Model:** a custom Transformer—integrating sequence embeddings and BPP features—delivered significantly better accuracy and strong competition ranking.
+
+### Real-World Applications
+
+Accurate RNA reactivity prediction has direct practical value across structural biology and RNA engineering.  
+First, reactivity profiles strengthen **secondary structure prediction**, a long-standing challenge in RNA bioinformatics.  
+Knowing which nucleotides are flexible or paired provides meaningful constraints for computational folding, improving the inference of helices, loops, and long-range interactions—an essential step for understanding RNA function, comparing structures, and guiding 3D modeling (Justyna et al., 2023).
+
+Second, reactivity signals help connect **RNA structure with RNA modifications**. Many modifications alter thermodynamic stability and pairing behavior, reshaping secondary and tertiary structure. These structural effects influence translation, splicing, and RNA–protein interactions. Predictive models, therefore, support the broader study of the epitranscriptome and its regulatory roles (Yang et al., 2025).
+
+Third, reactivity prediction enables **faster RNA design and therapeutic development**. In silico prediction reduces the need for experimental SHAPE/DMS assays and allows rapid screening of candidate mRNAs, regulatory RNAs, and engineered constructs before laboratory validation. This is valuable in contexts such as mRNA vaccines, RNA switches, and synthetic RNA devices.
+
+Overall, predicted reactivity serves as an efficient proxy for structural and biochemical behavior, supporting improved structure modeling, a deeper understanding of RNA modification effects, and accelerated development of functional and therapeutic RNA molecules.
+
+### Final Takeaway
+
+By combining structural features with an attention-based deep learning model, this project demonstrates that RNA reactivity—and therefore RNA folding behavior—can be predicted with high accuracy.  
+These capabilities directly support **faster RNA design**, **better therapeutic development**, and **more efficient experimental pipelines** across modern computational and molecular biology.
+
+## References
+Deigan, K. E., Li, T. W., Mathews, D. H., & Weeks, K. M. (2009). *Accurate SHAPE-directed RNA structure determination.*
+
+Justyna, M., Antczak, M., & Szachniuk, M. (2023). *Machine learning for RNA 2D structure prediction benchmarked on experimental data.*
+
+Yang, S., Pham, N. T., Li, Z., Baik, J. Y., Lee, J., Zhai, T., Yu, W., Hou, B., Shang, T., He, W., Duong-Tran, D., Naik, M., & Shen, L. (2025). *Advances in RNA secondary structure prediction and RNA modifications: Methods, data, and applications.*
+
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). *Attention Is All You Need.* arXiv:1706.03762.
+
+
+
+
+
+
+
+
+
