@@ -496,6 +496,9 @@ Epoch 2/20
 Epoch 3/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0467 - masked_mae_metric: 0.5518 - val_loss: 0.0459 - val_masked_mae_metric: 0.5434
 ```
+
+{::options parse_block_html="true" /}
+
 <details>
 <summary><strong>Show full training log</strong></summary>
   
@@ -537,6 +540,9 @@ Epoch 20/20
 ```
 
 </details>
+
+{::options parse_block_html="false" /}
+
 
 The model adapts quickly during the early epochs and continues to refine steadily afterward—behavior typical of well-tuned Transformer architectures with positional embeddings. Incorporating both sequence embeddings and structure-informed features enables the model to capture pairing-related patterns that drive SHAPE reactivity.
 
