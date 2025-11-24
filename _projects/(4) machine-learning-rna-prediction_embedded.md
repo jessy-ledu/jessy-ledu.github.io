@@ -314,52 +314,54 @@ Below, you can view the entire notebook used to generate the visualizations and 
 
 ## Lightweight Linear Baseline (scikit-learn)
 
-Before moving to deep learning architectures, it is instructive to establish a simple and efficient baseline model using **scikit-learn**.  
-This section develops a lightweight linear predictor to demonstrate how classical machine-learning techniques perform on the RNA reactivity task—and why they ultimately struggle with the long-range dependencies inherent to RNA structure.
+Before introducing deep learning architectures, we first built a simple baseline model using scikit-learn. The goal was to show that a classic regression approach—using only the raw RNA sequence plus a few simple covariates—can learn to predict reactivity values, while also illustrating the practical limitations of traditional machine-learning methods for this type of data. Handling nucleotide sequences still requires explicit vectorization (e.g., one-hot encoding) and produces large, sparse design matrices.
 
 ### Objectives
 
 - Apply standard **scikit-learn workflows** for preprocessing, sparse vectorization, batching, and model training  
-- Convert RNA sequences into **memory-efficient sparse encodings**, using hashing tricks and Compressed Sparse Row (CSR) matrices to handle long sequences  
-- Train a fast and interpretable **linear model** (SGDRegressor) suitable for rapid experimentation  
+- Convert RNA sequences into **memory-efficient sparse encodings** using one-hot features and Compressed Sparse Row (CSR) matrices generated on the fly  
+- Train a fast and interpretable **linear model** (SGDRegressor) suitable for rapid experimentation and warm-started runs  
 - Evaluate performance and highlight the limitations of linear approaches for modeling **long-range interactions** and **context-dependent signals** in RNA  
-- Provide a clean, minimal pipeline for generating predictions and preparing Kaggle-ready submissions
+- Provide a clean, minimal pipeline for generating predictions and preparing Kaggle-ready submissions based purely on sequence, position, and experiment identity (no structural covariates)
 
-This lightweight baseline shows how far a linear model can go when fed with engineered sparse features, while also motivating the shift toward **deep neural architectures**, which naturally capture sequence patterns, positional context, and structural dependencies that are difficult or impossible to express through manual encoding alone.
+This lightweight baseline shows how far a linear model can go when fed with simple sparse features, while also motivating the shift toward **deep neural architectures**, which naturally capture sequence patterns, positional context, and structural dependencies that are difficult or impossible to express through manual encoding alone.
 
-## Linear SHAPE Model — Features, Training & Inference
+### Linear SHAPE Model — Features, Training & Inference
 
 This block implements a lightweight, fully linear baseline for SHAPE reactivity:
 
 - **Data expansion**  
-  Each sequence is expanded to per-base rows via `make_per_base_rows`, discarding invalid or missing targets.
+  Each sequence is expanded to per-base rows via `make_per_base_rows`, discarding invalid or missing targets. Features are derived directly from the raw dataframe at training/inference time (no precomputed feature files).
 
 - **Feature design (sparse)**  
-  `to_sparse_design` builds a sparse matrix with:
+  `to_sparse_design` builds a sparse CSR matrix with:
   - one-hot base identity (A/C/G/U),
-  - normalized position along the sequence,
-  - one-hot experiment label (DMS / 2A3).
+  - normalized position along the sequence (per-base positional covariate),
+  - one-hot experiment label (e.g., DMS / 2A3).
+  
+  All features are encoded on the fly from the input dataframe.
 
 - **Model & optimization**  
   `fit_sgd_on_df` trains an `SGDRegressor` with:
   - L2-regularized linear regression,
   - inverse-scaling learning rate,
   - mini-batches over sequences and per-base shuffling,
-  - optional callback for tracking epoch-wise loss.
+  - warm-started updates via `partial_fit`, enabling convenient continuation and parameter-tuning runs,
+  - callback for tracking epoch-wise loss.
 
 - **Evaluation & splits**  
   `split_by_seq` creates train/validation splits at the **sequence level** (no leakage across bases),  
   and `evaluate_on_df` reports Mean Absolute Error (MAE) on a validation subset.
 
 - **Fast submission path**  
-  `make_submission_from_csv_fast` reuses the learned linear weights to generate predictions directly from sequence-only features for each test sequence, writing the Kaggle submission CSV in a streaming, memory-efficient way.
+  `make_submission_from_csv_fast` reuses the learned linear weights to generate predictions directly from sequence-only features (plus position and experiment ID) for each test sequence, writing the Kaggle submission CSV in a streaming, memory-efficient way.
 
-- **Experiment driver**
+- **Experiment driver**  
   `run_experiment` wires everything together: trains the model with the given hyperparameters, measures runtime, and returns the MAE and the fitted model for further use.
 
- ## Results
+ ### Results
 
-### Linear SHAPE Model — Trained on a Subset of the Data
+#### Linear SHAPE Model — Trained on a Subset of the Data
 
 The plot below shows the epoch-wise training loss for the linear SHAPE model.  
 The loss decreases over the first few epochs, indicating that the model learns meaningful trends in the data.  
@@ -367,7 +369,7 @@ The curve is not strictly monotonic, and improvement slows quickly, suggesting t
 
 ![training epochs](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/Simple_linear_model_epoch_loss.png)
 
-### Full-Dataset Training & Generalization
+#### Full-Dataset Training & Generalization
 
 When trained on the full dataset, the model can predict SHAPE reactivities for unseen sequences, including those substantially longer than those observed during training (e.g., >400 nt in the test set).  
 This demonstrates that even a simple linear model can generalize reasonably well to new RNA lengths and compositions.
@@ -381,14 +383,14 @@ On Kaggle’s *Stanford Ribonanza* private leaderboard, the model achieved:
 The nearly identical public/private scores show **no significant overfitting**, but the overall ranking remains low.  
 This is expected: the model uses only basic per-base features (base identity, position, and experiment label) and a simple linear regression optimizer, without any structural features, signal smoothing, or deep learning.
 
-### Takeaway
+#### Takeaway
 
 Despite its simplicity, the model captures a surprising amount of signal in the SHAPE dataset.  
 It serves as a clear demonstration that:
 
 - RNA reactivity patterns contain predictable linear components,  
-- sparse feature engineering can scale to very long sequences, and  
-- even a basic model provides a strong baseline for understanding the data before moving to more expressive architectures.
+- sparse feature engineering can scale to very long sequences,
+- even a basic model provides a strong baseline for understanding the data before moving to more complex architectures.
 
 ## Lightweight Linear Baseline Notebook
 <a id="RNA folding-notebook"></a>
@@ -406,26 +408,36 @@ Below, you can view the entire notebook, including the  steps of model design an
 ---
 ## Transformer-Based RNA Reactivity Model
 
-After establishing a linear baseline, we move to a more capable architecture: a **Transformer** designed to model RNA sequences and their structure-dependent chemical reactivity.  
-Transformers naturally capture **long-range interactions**—a key challenge in RNA folding—through self-attention.
+After establishing a linear baseline, a more complex architecture is implemented using a **Transformer** model that captures complex interactions within the sequence and integrates structural features from external in silico data. Transformers naturally capture **long-range interactions**—a key challenge in RNA folding—through self-attention. Classical machine-learning models cannot directly model these long-range dependencies because they rely on fixed, hand-engineered features, whereas deep learning architectures learn these interactions automatically from raw sequence data. In a Transformer, each nucleotide is first mapped to a continuous vector via a learned embedding layer, along with positional encodings that mark its location, allowing the model to reason over the RNA sequence in a high-dimensional space where structural patterns become learnable.
 
 ### Choice for Transformer model
 
 RNA reactivity depends on **global structural context**: bases far apart in sequence may pair, stabilize helices, or modulate local flexibility.  
-Compared to CNNs or RNNs, Transformers:
+Compared to other deep learning models, Transformers:
 
 - use **self-attention**, allowing every position to attend to every other  (Vaswani et al., 2017)
 - learn **pairwise dependencies** without fixed receptive fields  
 - scale well to long sequences with stable training  
 - unify both **local motifs** and **non-local structural influences**
 
-This makes them well suited for SHAPE reactivity, which reflects a mixture of **local chemistry** and **global RNA geometry**.
+This makes them well-suited for SHAPE reactivity, which reflects a mixture of **local chemistry** and **global RNA geometry**.
+
+RNA reactivity depends on **global structural context**: bases far apart in sequence may pair, stabilize helices, or modulate local flexibility.
+Transformers are particularly useful here because they:
+
+- use self-attention, letting every nucleotide consider any other in the sequence
+
+- learn pairwise and long-range dependencies without fixed receptive fields
+
+- integrate both local features and global structural signals
+
+This makes them well-suited for modeling SHAPE reactivity, which reflects a combination of local chemical environment and global RNA geometry.
 
 ### Model Architecture Highlights
 
 The model includes:
 
-- **Token embeddings** for nucleotides (A/C/G/U/T)  
+- **Token embeddings** for nucleotides (A/C/G/U)  
 - **Learned positional embeddings**, capturing positional bias more flexibly than sinusoidal encodings  
 - **Multi-head self-attention** for long-range interactions  
 - **Feed-forward blocks** for nonlinear transformation of local context  
@@ -438,11 +450,11 @@ This design unifies sequence-level and experiment-specific patterns.
 To enhance structural awareness, the model incorporates **base-pair probability (BPP) features** from LinearPartition–EternaFold.  
 These channels provide:
 
-- tendencies of nucleotides to be **paired or unpaired**  
-- cues about **helix boundaries**, **loops**, and **interaction partners**  
-- global constraints that encourage biologically meaningful attention patterns
+- information about how likely each nucleotide is to be **paired or unpaired**  
+- cues marking **helix boundaries**, **loops**, and potential **secondary-structure partners** (consistent with the correlations observed earlier in the notebook)  
+- broader structural context that helps the model align its predictions with plausible RNA folding patterns
 
-BPP features act as explicit structural priors, complementing the structure the Transformer learns implicitly.
+BPP features add explicit structural signals that support the Transformer’s learned representations.
 
 ### Training Pipeline
 
@@ -450,30 +462,29 @@ A custom **training loop** provides full control and efficiency:
 
 - mixed-sequence batching with padding and attention masks  
 - masked losses to ignore missing reactivities  
-- learning-rate warmup + cosine decay for stable convergence  
+- downweighting of repeated start and end positions through masking  
+- learning-rate warmup followed by cosine decay for stable convergence  
 - early stopping and validation monitoring  
-- experiment-level stratification for balanced sampling
+- experiment-level stratification for balanced sampling  
 
-This setup ensures efficient training on long sequences while maintaining correct masking and memory usage.
+This setup enables efficient training on long sequences while ensuring correct masking behavior and controlled memory usage.
 
 ### Hyperparameter Exploration
 
 A range of configurations was explored:
 
-- embedding size, number of heads, and depth  
-- dropout and activation choices  
-- BPP feature combinations  
-- learning-rate schedules and optimizers (AdamW, Lion)  
-- full-length vs. truncated sequences
+- embedding size, number of attention heads, and model depth  
+- dropout rates and activation functions  
+- learning-rate schedules and optimizers (e.g., AdamW)  
 
-This helped identify a model that trains stably, captures broad structural context, and generalizes well.
+This process helped identify a model that trains stably, captures broad structural context, and generalizes effectively.
 
 **Model structure**  
 ![model structure](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/best_model_custom_bg.png)
 
 ---
 
-This model combines **attention-driven long-range modeling**, **structural priors**, and a **carefully engineered training process**, resulting in a competitive solution for RNA reactivity prediction.
+This model combines **attention-based long-range modeling**, **structure-informed input features**, and a **carefully tuned training pipeline**, yielding a competitive approach for RNA reactivity prediction.
 
 ---
 
@@ -481,7 +492,7 @@ This model combines **attention-driven long-range modeling**, **structural prior
 
 ### Training Summary
 
-The model converges smoothly over 20 epochs, with training and validation losses decreasing in parallel—evidence of stable optimization and good generalization.
+The model trains cleanly for over 20 epochs, and the close alignment of the training and validation losses suggests stable optimization and robust generalization.
 
 Below is the output of the callbacks implemented in the custom loop:
 ```text
@@ -532,11 +543,10 @@ Epoch 20/20
 ```
 </details>
 
-The model adapts quickly in early epochs and refines steadily afterward, characteristic of well-behaved Transformer architectures with positional embeddings.
-The leaderboard results above confirm robust generalization to unseen sequences, including long and structurally complex RNAs. Integrating sequence embeddings with structural priors helps the model capture pairing-driven patterns underlying SHAPE reactivity.
+The model adapts quickly during the early epochs and continues to refine steadily afterward—behavior typical of well-tuned Transformer architectures with positional embeddings. Incorporating both sequence embeddings and structure-informed features enables the model to capture pairing-related patterns that drive SHAPE reactivity.
 
-**Predicted per-nucleotide reactivities for positions 83–92**
-To illustrate the expected submission format used in the competition, the table below shows an example of predicted per-nucleotide reactivities for positions **83–92** of the first test sequence:
+**Predicted per-nucleotide reactivities for positions 83–92**  
+To illustrate the submission format used in the competition, the table below shows an example of predicted per-nucleotide reactivities for positions **83–92** of the first test sequence:
 
 | id | position | reactivity_DMS_MaP | reactivity_2A3_MaP |
 |----|----------|---------------------|----------------------|
@@ -551,6 +561,7 @@ To illustrate the expected submission format used in the competition, the table 
 | 8  | 91       | 0.020680            | 0.365435             |
 | 9  | 92       | 0.450738            | 0.173991             |
 
+---
 
 ### Performance
 
@@ -562,7 +573,8 @@ Trained end-to-end on the full competition dataset, the Transformer achieved:
 
 The close public/private scores indicate strong generalization across RNAs of varying length and complexity.
 
-Overall, the model effectively leverages both nucleotide composition and structural context to accurately predict per-nucleotide reactivity. Its competition placement reflects solid performance on a challenging biophysical prediction task.
+Overall, the model effectively leverages both nucleotide composition and structural context to predict per-nucleotide reactivity, delivering solid performance on a challenging biophysical prediction task.
+Compared with the linear baseline, the Transformer achieved significantly lower validation error, confirming that attention mechanisms and structural features provide clear gains for RNA reactivity prediction.
 
 ---
 
@@ -599,7 +611,7 @@ This project built a complete pipeline for **predicting RNA chemical reactivity*
 ### Real-World Applications
 
 Accurate RNA reactivity prediction has direct practical value across structural biology and RNA engineering.  
-First, reactivity profiles strengthen **secondary structure prediction**, a long-standing challenge in RNA bioinformatics.  
+Reactivity profiles strengthen **secondary structure prediction**, a long-standing challenge in RNA bioinformatics.  
 Knowing which nucleotides are flexible or paired provides meaningful constraints for computational folding, improving the inference of helices, loops, and long-range interactions—an essential step for understanding RNA function, comparing structures, and guiding 3D modeling (Justyna et al., 2023).
 
 Second, reactivity signals help connect **RNA structure with RNA modifications**. Many modifications alter thermodynamic stability and pairing behavior, reshaping secondary and tertiary structure. These structural effects influence translation, splicing, and RNA–protein interactions. Predictive models, therefore, support the broader study of the epitranscriptome and its regulatory roles (Yang et al., 2025).
@@ -610,7 +622,7 @@ Overall, predicted reactivity serves as an efficient proxy for structural and bi
 
 ### Final Takeaway
 
-By combining structural features with an attention-based deep learning model, this project demonstrates that RNA reactivity—and therefore RNA folding behavior—can be predicted with high accuracy.  
+By combining structural features with an attention-based deep learning model, this project demonstrates that RNA reactivity—and therefore RNA folding behavior—can be predicted with good accuracy.  
 These capabilities directly support **faster RNA design**, **better therapeutic development**, and **more efficient experimental pipelines** across modern computational and molecular biology.
 
 ## References
