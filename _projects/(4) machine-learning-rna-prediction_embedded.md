@@ -634,7 +634,12 @@ Yang, S., Pham, N. T., Li, Z., Baik, J. Y., Lee, J., Zhai, T., Yu, W., Hou, B., 
 
 Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). *Attention Is All You Need.* arXiv:1706.03762.
 
+---
 
+> Thank you for exploring this machine learning project — feedback and discussion are welcome.  
+>
+> > **Note:** This project was developed with guidance from OpenAI's ChatGPT for code structuring, reasoning, and Markdown formatting.  
+> All code, analyses, and visualizations were **independently validated and adapted** by me to ensure accuracy and reproducibility.
 
 
 
