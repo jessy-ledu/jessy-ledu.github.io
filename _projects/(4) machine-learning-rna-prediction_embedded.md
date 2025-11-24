@@ -496,8 +496,9 @@ Epoch 2/20
 Epoch 3/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0467 - masked_mae_metric: 0.5518 - val_loss: 0.0459 - val_masked_mae_metric: 0.5434
 ```
-<details> <summary><strong>Show full training log</strong></summary>
-     
+<details>
+<summary><strong>Show full training log</strong></summary>
+  
 ```text
 Epoch 4/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0460 - masked_mae_metric: 0.5445 - val_loss: 0.0456 - val_masked_mae_metric: 0.5401
