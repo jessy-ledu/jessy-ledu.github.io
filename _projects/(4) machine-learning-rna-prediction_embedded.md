@@ -622,7 +622,7 @@ Overall, predicted reactivity serves as an efficient proxy for structural and bi
 
 ### Final Takeaway
 
-By combining structural features with an attention-based deep learning model, this project demonstrates that RNA reactivity—and therefore RNA folding behavior—can be predicted with good accuracy.  
+By combining structural features with an attention-based deep learning model, this project demonstrates that RNA reactivity—and therefore RNA folding behavior—can be predicted with strong, reliable accuracy.  
 These capabilities directly support **faster RNA design**, **better therapeutic development**, and **more efficient experimental pipelines** across modern computational and molecular biology.
 
 ## References
