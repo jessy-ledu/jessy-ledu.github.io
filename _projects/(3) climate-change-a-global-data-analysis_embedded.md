@@ -31,17 +31,17 @@ This analysis uses **freely available, reputable datasets** from:
 
 ### Objective
 
-I explore how countries vary in:
-- Climate change trends (°C/decade)
-- Greenhouse gas (GHG) emissions
-- Population growth
+Analyze global warming trends (surface temperature in °C/decade) and examine how they relate to two key factors:
+- greenhouse gas (GHG) emissions  
+- population growth  
+
 
 Through this, I aim to uncover global patterns and inequalities in **climate impact**, **contribution**, and **demographic change**, using accessible modeling techniques such as **linear regression** and **PCA**.
 
 ---
 
-This notebook not only addresses a critical global issue but also serves as a practical demonstration of **end-to-end data analysis in Python** for potential collaborators or employers.
-For those who want to explore the **full notebook and code**, you can jump directly to the [notebook section](#full-notebook).
+This notebook not only informs on a critical global issue but also serves as a practical demonstration of **data analysis in Python**.
+The **full Python notebook** can be found here [notebook section](#full-notebook).
 
 > **Note**: This notebook is intended as a **data science portfolio project**, not a scientific publication.  
 > It uses publicly available data and models to explore global patterns in climate, emissions, and population.  
@@ -50,7 +50,7 @@ For those who want to explore the **full notebook and code**, you can jump direc
 ---
 
 ## Mean Global Surface Temperature Change
-This plot shows the global average change in surface temperature over recent decades, with the option to view individual countries using the dropdown menu. It provides a clear view of the overall warming trend while allowing for country-level comparisons. Serving as a visual starting point for exploring climate patterns, it highlights both the magnitude and pace of temperature change, laying the groundwork for deeper analyses of the factors driving these shifts and their potential impacts.
+This plot shows the global average change in surface temperature over recent decades, with the option to view individual countries using the dropdown menu. It provides a clear view of the overall warming trend while allowing for country-level comparisons. Serving as a visual starting point for exploring climate patterns, it highlights both the magnitude and pace of temperature change.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
 Mean Global Surface Temperature Change
@@ -62,15 +62,15 @@ Mean Global Surface Temperature Change
 </iframe>
 
 ###  Linear Temperature Trends by Country (°C/decade)
-Since a linear model can effectively approximate the observed trends at both global and local scales, I applied simple linear regression to each country’s time series data to quantify changes in climate indicators such as surface temperature. The slope of the fitted line represents the average rate of temperature change per year, which I then scaled to °C per decade for more straightforward interpretation and comparison across regions.
+Since a linear model can effectively approximate the observed trends at both global and local scales, I applied simple linear regression to each country’s time series data to quantify changes in climate indicators such as surface temperature. The slope of the fitted regression line represents the average rate of temperature change per year, which I then scaled to °C per decade for more straightforward interpretation and comparison across regions.
 
 ### Why Linear Regression?
 
-Linear regression is a straightforward method for modeling long-term trends, providing a **first-order estimate** of how an indicator changes over time. It captures:
+Linear regression is a method for modeling long-term trends, providing a **first-order estimate** of how an indicator changes over time. It captures:
 
 -  **The direction** of change (warming or cooling)
 -  **The rate** of change (slope in °C/year → °C/decade)
--  While it doesn't capture non-linear effects or fluctuations, it's widely used as a baseline trend indicator.
+- While it doesn't capture non-linear effects or fluctuations, it fits well most of the observed distributions and is therefore a good baseline trend indicator.
 
 ### Country Code Reference
 
@@ -168,14 +168,12 @@ To complement our quantitative analysis, I mapped linear temperature trends by c
 ---
 ## Factors influencing global warming- studying impacting factors at global and local scales
 
-To explain the observed global trend—or at least to identify variables that correlate with it—I will analyze additional demographic indicators alongside greenhouse gas (GHG) emissions, assessing patterns at both the global and country-specific levels.
+To explain the observed global trend—or at least to identify variables that correlate with it—I analyzed additional demographic indicators alongside greenhouse gas (GHG) emissions, assessing patterns at both the global and country-specific levels.
 
 ---
 ### Average Population Growth Rate (% per year)
 
-I compute the **average annual population growth rate** using:
-
-**Average Annual Growth Rate (% per year)** is computed as:
+The **average annual population growth rate** is computed using:
 
 $$
 \text{Growth Rate} = 
@@ -183,7 +181,7 @@ $$
 $$
 
 
-This assumes **exponential growth** and enables fair comparison across countries.
+This assumes **exponential growth** and enables comparison across countries.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
 Population Growth Rate by Country (1960-2024)
@@ -205,7 +203,7 @@ These trends reflect a complex mix of **birth rates, aging, migration**, and **e
 
 ### Greenhouse Gases (GHG) and Their Impact on Climate
 
-The following map visualizes **linear trends in greenhouse gas emissions** for each country. The trends are estimated using the same **simple linear regression approach** applied previously to temperature changes, allowing for consistent comparison across indicators.
+The following map visualizes **linear trends in greenhouse gas emissions** for each country. The trends are estimated using the same **simple linear regression approach** previously applied to temperature changes, allowing for consistent comparisons across indicators.
 
 <div style="text-align:center; font-weight:bold; font-size:1.3em; margin-bottom:0.5em;">
 Greenhouse Gas Emissions Trend per Country
@@ -219,7 +217,7 @@ Greenhouse Gas Emissions Trend per Country
 ### Interpreting the Map
 
 - **Carbon dioxide (CO₂)** emissions generally show an upward trend in countries such as **China, India, and the United States**, while parts of **Western Europe** display stable or slightly declining trends.  
-- **Fluorinated gases (F-gases)** exhibit largely stagnant emissions globally, with increases mostly concentrated in countries with high CO₂ emissions.  
+- **Fluorinated gases (F-gases)** exhibit largely stagnant emissions globally, with increases mainly concentrated in countries with high CO₂ emissions.  
 - **Methane (CH₄)** emissions present contrasting patterns: **Northern countries** (e.g., Canada, Northern Europe) often show decreasing trends, whereas **Southern and densely populated countries** like China, India, and Brazil display increasing trends.  
 - **Nitrous oxide (N₂O)** emissions are increasing in countries including China, India, Brazil, and the United States, while trends are declining or stable in **Northern and Eastern European countries** and Russia.
 
@@ -361,7 +359,7 @@ This project confirms that **climate change is a global process**, with virtuall
 
 Through **correlation analysis**, **linear regression models**, and **Principal Component Analysis (PCA)**, I identified key structural imbalances:  
 
-> Countries experiencing the steepest climate impacts have **often contributed the least** to global emissions, highlighting a fundamental issue of **climate justice**.
+> Countries facing the strongest warming trends frequently have low historical emissions, illustrating the **unequal relationship** between climate exposure and emissions contributions..
 
 ---
 
@@ -389,7 +387,7 @@ This project also illustrates **end-to-end data science capabilities**:
 ## Full Notebook
 <a id="full-notebook"></a>
 
-Below, you can view the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto from Python 3 code:
+Below is the entire notebook used to generate the visualizations and interpretations. This HTML document has been generated using Quarto from Python 3 code:
 
 ---
 <div style="background-color:#1e1e1e; padding:10px; border-radius:5px;">
