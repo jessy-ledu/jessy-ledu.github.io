@@ -115,22 +115,13 @@ For each sequence, reactivity at each nucleotide position is provided in separat
 
 As a consequence, approximately **50% of all values** across the reactivity columns are missing. This high proportion is primarily driven by terminal regions where reactivity values are systematically absent for every sequence, as shown in the figure below.
 
-<div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.5em;">
-Missing reactivity values per position
-</div>
-<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/missing_reactivity.png" 
-     alt="Missing reactivity values per position" 
-     width="80%" 
-     style="border:0;">
-
+<p align="center">
+<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/missing_reactivity.png" width="600">
+</p>
 
 Most sequences are 170-180 bases long (left of the figure below); therefore, the training dataset has limited sequence length diversity. Nevertheless, the model must be designed to adapt to variable sequence length; for example, the test dataset contains sequences up to 400 bases, as reported in the Kaggle competition description.
 
 The proportions of each base across sequences are as expected (right of the figure below), with C, G, and U occurring at similar frequencies and a consistent bias toward higher A content. This enrichment in adenines is common in biological RNA samples and can be further amplified by experimental or library-design biases.
-
-<div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
-  Sequence Length Distribution and Base Composition
-</div>
 
 <table style="width:100%; border-collapse:collapse; border:0 !important;">
   <tr style="border:0 !important;">
@@ -159,10 +150,6 @@ The data and plot below indicate that the mean reactivity across most positions 
 - **75th percentile (Q3):** 0.387  
 - **Maximum:** 129.281
 
-  <div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
-  Reactivity value distribution per position for all sequences, and both experiments
-</div>
-
 <table style="width:100%; border-collapse:collapse; border:0 !important;">
   <tr style="border:0 !important;">
     <td style="width:50%; text-align:center; border:0 !important; padding:0; margin:0;">
@@ -181,10 +168,6 @@ The data and plot below indicate that the mean reactivity across most positions 
 As shown in the left panel of the figure below, the experiment type has only a small effect on the overall distribution of reactivity values per position. However, when nucleotides are considered separately (right panel), distinct patterns emerge. Under the DMS experiment, bases A and C show higher reactivity values, reaching approximately 0.7 and 0.5, respectively. In the 2A3 experiment, U and A exhibit the highest reactivity, at around 0.5 and 0.4, respectively.
 
 The difference for underrepresented bases is much more pronounced in the DMS dataset, where G and U show reactivity values below 0.1. This is expected, as the DMS probe modifies A and C positions, not G or U. In contrast, the 2A3 experiment shows a less constrained pattern, with G and C reaching reactivity values of approximately 0.3 and 0.2, respectively. For 2A3, the observed base-dependent differences reflect differences in backbone flexibility across sequence contexts rather than intrinsic chemical selectivity.
-
-  <div style="text-align:center; font-weight:bold; font-size:1.0em; margin-bottom:0.8em;">
-  Reactivity value distribution per position for all sequences, discriminated by experiments
-</div>
 
 <table style="width:100%; border-collapse:collapse; border:0 !important;">
   <tr style="border:0 !important;">
@@ -263,7 +246,9 @@ _No SHAPE data applied._
 
 **RNA predicted 2D folding — Unconstrained**
 
-![unconstrained](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_nc.png)
+<p align="center">
+<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_nc.png" width="600">
+</p>
 
 In this representation, several common structures are depicted, such as an internal loop (e.g., bases 51-53 and 62-64), a hairpin loop (e.g., bases 54-61), and a multi-branch loop (e.g., bases 30-35, 58, 106, and 126).
 
@@ -272,7 +257,9 @@ _Deigan method with default slope/intercept._
 
 **RNA predicted 2D folding — Standard SHAPE constraint**
 
-![standard_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png)
+<p align="center">
+<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_sc.png" width="600">
+</p>
 
 As noted in the method, in this example, the constrained structure appears very similar to the unconstrained structure; however, the internal loop between bases 51-53 and 62-64 was removed.
 Base positions with the highest measured reactivities (red on the reactivity scale) were commonly located in loops, such as the one between bases 106 and 126, indicating the strong influence of the in silico-predicted structure on reactivity. This observation is critical because it underscores the need to incorporate structural properties into the final model for improved prediction.
@@ -284,8 +271,9 @@ This exaggerated-constraint example highlights a tendency for SHAPE reactivities
 
 **RNA predicted 2D folding — Strong constraint**
 
-![strong_constraint](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_strong.png)
-
+<p align="center">
+<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/1ed6039ffb5c_folding_strong.png" width="600">
+</p>
 
 #### Summary
 
@@ -367,7 +355,9 @@ The plot below shows the epoch-wise training loss for the linear SHAPE model.
 The loss decreases over the first few epochs, indicating that the model learns meaningful trends in the data.  
 The curve is not strictly monotonic, and improvement slows quickly, suggesting that the model fits most of the learnable signal early and begins to overfit afterward.
 
-![training epochs](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/Simple_linear_model_epoch_loss.png)
+<p align="center">
+<img src="https://jessy-ledu.github.io/assets/Projects/ml-rna-2d/Simple_linear_model_epoch_loss.png" width="600">
+</p>
 
 #### Full-Dataset Training & Generalization
 
@@ -480,7 +470,10 @@ A range of configurations was explored:
 This process helped identify a model that trains stably, captures broad structural context, and generalizes effectively.
 
 **Model structure**  
-![model structure](https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/best_model_custom_bg.png)
+
+<p align="center">
+<img src="https://jessy-ledu.github.io/assets/Projects//ml-rna-2d/best_model_custom_bg.png" width="800">
+</p>
 
 ---
 
@@ -541,6 +534,7 @@ Epoch 19/20
 Epoch 20/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0370 - masked_mae_metric: 0.4527 - val_loss: 0.0372 - val_masked_mae_metric: 0.4546
 ```
+
 </details>
 
 The model adapts quickly during the early epochs and continues to refine steadily afterward—behavior typical of well-tuned Transformer architectures with positional embeddings. Incorporating both sequence embeddings and structure-informed features enables the model to capture pairing-related patterns that drive SHAPE reactivity.
