@@ -488,6 +488,7 @@ This model combines **attention-based long-range modeling**, **structure-informe
 The model trains cleanly for over 20 epochs, and the close alignment of the training and validation losses suggests stable optimization and robust generalization.
 
 Below is the output of the callbacks implemented in the custom loop:
+
 ```text
 Epoch 1/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 146s 59ms/step - loss: 0.0604 - masked_mae_metric: 0.6936 - val_loss: 0.0483 - val_masked_mae_metric: 0.5707
@@ -497,9 +498,7 @@ Epoch 3/20
 2098/2098 ━━━━━━━━━━━━━━━━━━━━ 116s 55ms/step - loss: 0.0467 - masked_mae_metric: 0.5518 - val_loss: 0.0459 - val_masked_mae_metric: 0.5434
 ```
 
-{::options parse_block_html="true" /}
-
-<details>
+<details markdown="1">
 <summary><strong>Show full training log</strong></summary>
   
 ```text
@@ -540,8 +539,6 @@ Epoch 20/20
 ```
 
 </details>
-
-{::options parse_block_html="false" /}
 
 
 The model adapts quickly during the early epochs and continues to refine steadily afterward—behavior typical of well-tuned Transformer architectures with positional embeddings. Incorporating both sequence embeddings and structure-informed features enables the model to capture pairing-related patterns that drive SHAPE reactivity.
